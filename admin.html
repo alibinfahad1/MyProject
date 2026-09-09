@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>محرر الضامن</title>
+<title>محرر الضامن v2</title>
 <script>
 /* Always start at the top after a page load/refresh. */
 (function(){
@@ -49,6 +49,8 @@
 </div>
 <script>
 'use strict';
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.addEventListener('pageshow', () => window.scrollTo(0,0));
 let data={}, active='الكل', loadGeneration=0;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
@@ -63,23 +65,50 @@ async function loadContent({discardDraft=false,scrollTop=false}={}){
   setStatus('جاري تحميل المحتوى...');
   if(scrollTop) window.scrollTo(0,0);
   if(discardDraft) localStorage.removeItem('aldhamn_admin_draft');
-  let loaded=null, source='';
-  try{loaded=await fetchJson(localContentUrl());source='content.json من الموقع'}catch(localErr){
-    try{loaded=await fetchJson(rawContentUrl());source='GitHub مباشرة';notice('تم تحميل المحتوى من GitHub مباشرة لأن النسخة المحلية لم تستجب.','warn',4500)}catch(rawErr){
-      const cached=localStorage.getItem('aldhamn_admin_last_content');
-      if(cached){try{loaded=JSON.parse(cached);source='نسخة محفوظة على هذا الجهاز';notice('تعذر الوصول للموقع وGitHub؛ تم فتح آخر نسخة محفوظة على جهازك.','warn',0)}catch(e){}}
-      if(!loaded){setStatus('تعذر التحميل');notice(`تعذر تحميل content.json.
-المحاولة المحلية: ${localErr.message}
-GitHub: ${rawErr.message}`,'err',0);return}
+
+  try{
+    // القراءة عند فتح المحرر تكون من GitHub Pages فقط، بدون Token وبدون GitHub API.
+    const loaded=await fetchJson('./content.json?v='+Date.now());
+    if(myGen!==loadGeneration)return;
+    data=loaded;
+    localStorage.setItem('aldhamn_admin_last_content',JSON.stringify(loaded));
+
+    const draft=localStorage.getItem('aldhamn_admin_draft');
+    if(draft&&!discardDraft){
+      try{
+        data=JSON.parse(draft);
+        notice('تم تحميل مسودة محفوظة على هذا الجهاز.','ok',3500);
+      }catch(e){}
     }
+
+    renderTabs();
+    render();
+    setStatus('جاهز للتحرير');
+    // امسح أي رسالة خطأ قديمة بعد نجاح التحميل
+    const n=$('#notice');
+    if(n && /load failed|تعذر تحميل/i.test(n.textContent||'')){
+      n.textContent='';
+      n.className='notice';
+    }
+    if(scrollTop){
+      requestAnimationFrame(()=>window.scrollTo(0,0));
+      setTimeout(()=>window.scrollTo(0,0),120);
+    }
+  }catch(err){
+    const cached=localStorage.getItem('aldhamn_admin_last_content');
+    if(cached){
+      try{
+        data=JSON.parse(cached);
+        renderTabs();
+        render();
+        setStatus('جاهز للتحرير — نسخة محفوظة');
+        notice('تعذر تحديث content.json من الموقع؛ تم فتح آخر نسخة محفوظة على جهازك.','warn',0);
+        return;
+      }catch(e){}
+    }
+    setStatus('تعذر التحميل');
+    notice('تعذر تحميل content.json من نفس الموقع. تأكد أن admin.html وcontent.json في نفس مجلد GitHub Pages ثم حدّث الصفحة تحديثًا إجباريًا.','err',0);
   }
-  if(myGen!==loadGeneration)return;
-  data=loaded;
-  localStorage.setItem('aldhamn_admin_last_content',JSON.stringify(loaded));
-  const draft=localStorage.getItem('aldhamn_admin_draft');
-  if(draft&&!discardDraft){try{data=JSON.parse(draft);notice('تم تحميل مسودة محفوظة على هذا الجهاز.','ok',3500)}catch(e){}}
-  renderTabs();render();setStatus('جاهز للتحرير');
-  if(scrollTop){requestAnimationFrame(()=>window.scrollTo(0,0));setTimeout(()=>window.scrollTo(0,0),120)}
 }
 function categories(){return ['الكل',...new Set(Object.values(data).map(v=>v.category||'المحتوى العام'))]}
 function renderTabs(){const cs=categories();if(!cs.includes(active))active='الكل';const el=$('#tabs');el.innerHTML=cs.map(c=>`<button class="tab ${c===active?'active':''}" data-c="${esc(c)}">${esc(c)}</button>`).join('');el.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{active=b.dataset.c;renderTabs();render()})}
