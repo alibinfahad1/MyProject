@@ -444,7 +444,7 @@ footer{padding:36px 0;text-align:center;font-size:12px;color:var(--txt-2);border
 </div>
 
 <script>
-const HASH='8620114d1f325bafd51148ee914150cea1e248411bc386971b5b9933f9789ac6';
+const HASH='1099940996d8eff634ecd622f5ab133bc31b4a3af47ff099f4ff4f5611d5c79b';
 async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 async function unlock(){
   const v=document.getElementById('gpass').value;
