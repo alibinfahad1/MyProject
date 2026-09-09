@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>النموذج المالي التفاعلي للضامن v1.2</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2e;--card:#17213a;--line:#2a3655;--text:#eef3ff;--muted:#9fb0d0;--accent:#5d87f5;--good:#43d17a;--warn:#ffbd4a;--bad:#ff6b6b;--input:#3b3216;--input-border:#7d6820}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif}header{padding:20px 24px;border-bottom:1px solid var(--line)}h1{margin:0;font-size:24px}.sub{margin-top:6px;color:var(--muted);font-size:13px}.tabs{display:flex;gap:8px;flex-wrap:wrap;padding:14px 22px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(11,16,32,.97);z-index:20}button{background:#1b2743;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px 12px;cursor:pointer}button.active{background:var(--accent)}main{max-width:1600px;margin:auto;padding:22px}.section{display:none}.section.active{display:block}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:1000px){.grid,.grid2{grid-template-columns:1fr 1fr}}@media(max-width:650px){.grid,.grid2{grid-template-columns:1fr}}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px}.metric-label{color:var(--muted);font-size:13px}.metric{font-size:25px;font-weight:700;margin-top:6px}h2{margin:0 0 14px;font-size:20px}h3{margin:0 0 10px;font-size:16px}table{width:100%;border-collapse:collapse;background:var(--panel)}th,td{padding:9px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:middle}th{background:#182440}.scroll{overflow:auto;border-radius:12px}input,select{width:100%;background:#0f1730;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px}input.edit{background:var(--input);border-color:var(--input-border);color:#ffe892;direction:ltr;text-align:center;font-variant-numeric:tabular-nums}.field-wrap{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:start;min-width:105px}.default{font-size:10px;color:var(--muted);margin-top:4px;text-align:center;white-space:nowrap}.mini-reset{padding:6px 8px;font-size:11px;background:#263454}.pagebar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}.page-reset{background:#51313a;border-color:#7d4452}.help{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);color:#dce6ff;background:#1d2945;cursor:pointer;font-size:12px;margin-inline-start:5px}.tip{position:fixed;display:none;max-width:340px;background:#f6f8ff;color:#17213a;border-radius:10px;padding:12px;z-index:99;box-shadow:0 8px 30px rgba(0,0,0,.35);font-size:13px;line-height:1.6}.note{font-size:12px;color:var(--muted);line-height:1.7}.good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}canvas{width:100%;height:300px;background:var(--panel);border:1px solid var(--line);border-radius:12px}.pill{display:inline-block;padding:7px 10px;border-radius:999px;background:#1b2743;border:1px solid var(--line);font-size:12px;margin:3px}.explain{background:#111a30;border:1px dashed #405177;border-radius:12px;padding:14px;margin-bottom:14px;line-height:1.8}.overall{background:#152343;border-right:4px solid var(--accent)}.percent-wrap{position:relative}.percent-wrap input{padding-left:28px}.percent-sign{position:absolute;left:9px;top:8px;color:#ffe892}.footer{padding:18px;text-align:center;color:var(--muted);font-size:12px}
+.fin-gate{position:fixed;inset:0;background:#0b1020;z-index:999;display:flex;align-items:center;justify-content:center;padding:24px}
+.fin-gate .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:36px;max-width:400px;width:100%;text-align:center}
+.fin-gate h2{margin:0 0 8px}.fin-gate p{color:var(--muted);font-size:13px;margin:0 0 20px}
+.fin-gate input{width:100%;background:#0f1730;border:1px solid var(--line);border-radius:8px;padding:12px;color:#fff;text-align:center;margin-bottom:14px}
+.fin-gate button{width:100%;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:12px;font-weight:700;cursor:pointer}
+.back-btn{position:fixed;top:14px;left:14px;z-index:30;background:#1b2743;color:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px;text-decoration:none}
+</style></head><body>
+<div id="finGate" class="fin-gate">
+  <div class="box">
+    <h2>النموذج المالي للضامن</h2>
+    <p>هذا المحتوى محمي. أدخل كلمة المرور للدخول.</p>
+    <input type="password" id="finPass" placeholder="كلمة المرور" onkeydown="if(event.key==='Enter')finUnlock()">
+    <button onclick="finUnlock()">دخول</button>
+    <a href="index.html" style="display:inline-block;margin-top:14px;color:var(--muted);font-size:13px;text-decoration:none">← رجوع للصفحة الرئيسية</a>
+  </div>
+</div>
+<script>
+(function(){
+  var H='8620114d1f325bafd51148ee914150cea1e248411bc386971b5b9933f9789ac6';
+  function bodyLock(){document.body.style.overflow='hidden';}
+  if(sessionStorage.getItem('fin_ok')==='1'){document.addEventListener('DOMContentLoaded',function(){var g=document.getElementById('finGate');if(g)g.style.display='none';});}
+  else{document.addEventListener('DOMContentLoaded',bodyLock);}
+  window.finUnlock=async function(){
+    var v=document.getElementById('finPass').value;
+    var buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v));
+    var h=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+    if(h===H){sessionStorage.setItem('fin_ok','1');document.getElementById('finGate').style.display='none';document.body.style.overflow='';}
+    else{alert('كلمة المرور غير صحيحة');document.getElementById('finPass').value='';}
+  };
+})();
+</script>
+<a href="index.html" class="back-btn">← رجوع للرئيسية</a>
+<header><h1>النموذج المالي التفاعلي للضامن v1.2</h1><div class="sub">خطة خمس سنوات • استثمار مستهدف 100 مليون ريال • مرجع السوق: SAMA / DataSaudi</div></header>
+<nav class="tabs" id="tabs">
+<button data-tab="overall">الشرح العام</button><button data-tab="dashboard" class="active">لوحة التحكم</button><button data-tab="yearview">ملخص السنوات</button><button data-tab="assumptions">الافتراضات</button><button data-tab="market">حجم السوق</button><button data-tab="eligible">المنتجات المؤهلة</button><button data-tab="costs">CAPEX و OPEX</button><button data-tab="revenue">الإيرادات</button><button data-tab="scenarios">السيناريوهات</button><button data-tab="breakeven">نقطة التعادل</button>
+</nav>
+<div id="tip" class="tip"></div>
+<main>
+
+<section id="overall" class="section">
+<div class="pagebar"><h2>الشرح العام للنموذج <span class="help" data-help="هذه الصفحة تشرح طريقة قراءة النموذج من البداية إلى النهاية، بدون الدخول في التفاصيل المحاسبية.">?</span></h2></div>
+<div class="explain overall">
+<b>كيف تقرأ النموذج؟</b><br>
+1) نبدأ بحجم السوق الرسمي من بيانات SAMA. 2) نستخرج منه نسبة المنتجات القابلة للتسجيل. 3) نحدد لكل سيناريو كم نسبة نصل إليها من السوق، وكم يسجل، وكم ينفذ عملية. 4) العمليات تولد إيرادات B2C وB2B. 5) نقارن الإيرادات مع OPEX وCAPEX. 6) نعرف متى تصل الشركة إلى نقطة التعادل وهل مبلغ 100 مليون يكفي خمس سنوات.
+</div>
+<div class="grid">
+<div class="card"><h3>CAPEX <span class="help" data-help="مصروف تأسيسي لبناء أصل يبقى مع الشركة، مثل بناء المنصة أو التطبيقات. غالبًا يظهر مرة واحدة في البداية.">?</span></h3><p class="note">تكلفة تأسيس المنصة والأصول الأساسية. افتراضيًا في السنة الأولى فقط.</p></div>
+<div class="card"><h3>OPEX <span class="help" data-help="مصروف تشغيلي متكرر لدفع الرواتب والصيانة والتطوير المستمر والسحابة والتسويق والإدارة.">?</span></h3><p class="note">مصاريف تشغيل تتكرر كل سنة وتشمل التطوير والصيانة والرواتب.</p></div>
+<div class="card"><h3>Break-even <span class="help" data-help="نقطة التعادل هي أول سنة تصبح فيها الإيرادات كافية لتغطية المصاريف التشغيلية. قبلها الشركة تخسر، وبعدها تبدأ تمول نفسها.">?</span></h3><p class="note">أول سنة تغطي فيها الإيرادات المصاريف التشغيلية.</p></div>
+<div class="card"><h3>الرصيد النقدي <span class="help" data-help="المبلغ الموجود في حساب الشركة بعد إضافة الإيرادات وخصم التكاليف. ليس هو الربح وحده.">?</span></h3><p class="note">كم بقي في البنك من التمويل والإيرادات بعد المصروفات.</p></div>
+</div>
+</section>
+
+<section id="dashboard" class="section active">
+<div class="pagebar"><h2>لوحة التحكم <span class="help" data-help="ملخص سريع لأهم نتائج النموذج وفق السيناريو المختار. الأرقام هنا ناتجة من جميع الصفحات الأخرى.">?</span></h2><div><label>السيناريو المعروض</label><select id="scenarioSelect"><option value="worst">أسوأ</option><option value="base" selected>متوسط</option><option value="best">أفضل</option></select></div></div>
+<div class="grid">
+<div class="card"><div class="metric-label">الاستثمار المستهدف <span class="help" data-help="المبلغ المطلوب من المستثمر لتمويل التأسيس والتشغيل.">?</span></div><div class="metric" id="kFunding"></div></div>
+<div class="card"><div class="metric-label">إجمالي CAPEX <span class="help" data-help="إجمالي تكاليف تأسيس الأصول التقنية والمكتبية.">?</span></div><div class="metric" id="kCapex"></div></div>
+<div class="card"><div class="metric-label">إجمالي OPEX <span class="help" data-help="إجمالي المصروفات التشغيلية لخمس سنوات.">?</span></div><div class="metric" id="kOpex"></div></div>
+<div class="card"><div class="metric-label">الاحتياطي النقدي <span class="help" data-help="مبلغ لا يخطط لصرفه إلا للطوارئ أو التأخر في النمو.">?</span></div><div class="metric" id="kReserve"></div></div>
+<div class="card"><div class="metric-label">السوق المؤهل - Y1 <span class="help" data-help="عدد عمليات شراء المنتجات التي نقدر أنها قابلة للتسجيل في الضامن خلال السنة الأولى.">?</span></div><div class="metric" id="kMarket"></div></div>
+<div class="card"><div class="metric-label">إيراد Y1 <span class="help" data-help="إيرادات B2C وB2B المتوقعة في السنة الأولى وفق السيناريو المختار.">?</span></div><div class="metric" id="kRevenue"></div></div>
+<div class="card"><div class="metric-label">نقطة التعادل <span class="help" data-help="أول سنة يصبح فيها الربح التشغيلي صفرًا أو موجبًا.">?</span></div><div class="metric" id="kBE"></div></div>
+<div class="card"><div class="metric-label">رصيد نهاية Y5 <span class="help" data-help="الرصيد النقدي بعد خمس سنوات، وليس صافي الربح وحده.">?</span></div><div class="metric" id="kCash"></div></div>
+</div>
+<div class="grid2" style="margin-top:14px"><div><h2>الإيرادات مقابل التكاليف</h2><canvas id="mainChart" width="950" height="320"></canvas></div><div class="card"><h3>حالة التمويل</h3><div id="fundingStatus" class="metric"></div><p class="note">الجدول يوضح الرصيد الموجود في البنك بعد الإيرادات والمصروفات لكل سنة.</p><div id="yearSummary"></div></div></div>
+</section>
+
+<section id="yearview" class="section">
+<div class="pagebar"><h2>ملخص السنوات والسيناريوهات <span class="help" data-help="هذه الصفحة تجمع في نظرة واحدة: العمليات، الإيرادات، التكاليف، والنتيجة لكل سنة ولكل سيناريو.">?</span></h2><button class="page-reset" data-reset-page="scenarios">إعادة ضبط السيناريوهات</button></div>
+<div class="explain">هذه الصفحة هي الأسرع للشرح أمام المستثمر. اختر السنة أو اقرأ الصف كاملًا لترى الفرق بين أسوأ ومتوسط وأفضل سيناريو.</div>
+<h3 style="margin:22px 0 8px">1 · إيرادات B2C <span class="help" data-help="الإيراد من المستهلك فقط: العمليات اليومية مضروبة في رسوم كل خدمة ونسبة استخدامها. لا يشمل عقود الشركات.">?</span></h3>
+<div class="explain">السلسلة هنا: العمليات المؤهلة ← نقسمها على متوسط العمليات لكل مشترٍ للحصول على <b>أشخاص</b> ← نسبة التسجيل ← نسبة التفعيل ← عدد العمليات. عمود «من البالغين» هو تحقق واقعية: يقارن المسجّلين بعدد البالغين <b>في تلك السنة تحديدًا</b> بعد تطبيق النمو السكاني، لا برقم ثابت. إذا تجاوز 100% فالافتراضات تنتج مستخدمين أكثر من سكان المملكة ويظهر بالأحمر.</div>
+<div class="scroll"><table><thead><tr><th>السنة</th><th>السيناريو</th><th>مشترون تم الوصول لهم</th><th>مسجّلون</th><th>من البالغين</th><th>مفعّلون</th><th>عمليات/سنة</th><th>عمليات/يوم</th><th>إيرادات B2C</th></tr></thead><tbody id="tblB2C"></tbody></table></div>
+
+<h3 style="margin:34px 0 8px">2 · إيرادات B2B <span class="help" data-help="الإيراد من الشركات والجهات: عقود الإعلانات والبيانات وسلاسل الإمداد والجهات الحكومية وتكامل المتاجر.">?</span></h3>
+<div class="explain">عقود B2B لا تعتمد على إنفاق المستهلك، لكنها تتأثر بحجم المنصة: قاعدة بيانات أكبر تعني قدرة تفاوضية أعلى وعقودًا أكثر. لذلك يُضرب إيراد B2B في مُعامل لكل سيناريو (أسوأ 0.55 · متوسط 1.0 · أفضل 1.6).</div>
+<div class="scroll"><table><thead><tr><th>السنة</th><th>السيناريو</th><th>إيرادات B2B</th><th>نمو عن السنة السابقة</th></tr></thead><tbody id="tblB2B"></tbody></table></div>
+
+<h3 style="margin:34px 0 8px">3 · الدمج والنتيجة النهائية <span class="help" data-help="جمع المصدرين معاً مع التكاليف، للوصول إلى الربح التشغيلي والرصيد النقدي الختامي لكل سنة وسيناريو.">?</span></h3>
+<div class="explain">هنا تظهر الصورة الكاملة: من أين جاء الإيراد، وكم استهلكت التكاليف، وما المتبقي فعلياً.</div>
+<div class="scroll"><table><thead><tr><th>السنة</th><th>السيناريو</th><th>B2C</th><th>B2B</th><th>إجمالي الإيرادات</th><th>حصة B2C</th><th>التكاليف المباشرة</th><th>OPEX</th><th>CAPEX</th><th>الربح التشغيلي</th><th>صافي الحركة النقدية</th><th>الرصيد الختامي</th></tr></thead><tbody id="tblAll"></tbody></table></div>
+</section>
+
+<section id="assumptions" class="section">
+<div class="pagebar"><h2>الافتراضات <span class="help" data-help="هذه الصفحة تحتوي على القيم الأساسية التي تحرك النموذج كله. غير أي قيمة صفراء وستتغير النتائج تلقائيًا.">?</span></h2><button class="page-reset" data-reset-page="assumptions">إعادة ضبط الصفحة</button></div>
+<div class="grid" id="assumptionsGrid"></div>
+<div class="explain" style="margin-top:14px"><b>عدد الأشهر المتاحة من بيانات SAMA:</b> المقصود عدد الأشهر التي تغطيها البيانات، وليس عدد السنوات. الملف الحالي يغطي يناير إلى مايو 2026، أي 5 أشهر.<br><b>سنونة البيانات:</b> تعني تحويل بيانات جزء من السنة إلى تقدير سنوي. مثال: عمليات أول 5 أشهر × 12 ÷ 5.<br><b>نسبة التكلفة المباشرة من B2B:</b> نسبة من الإيراد تذهب مباشرة لتنفيذ العقد، مثل تكاملات، دعم، مزودين، أو عمولات. 12% تعني أن كل 100 ريال إيراد B2B يحتاج 12 ريال تكلفة مباشرة.<br><b>نسبة التكلفة المباشرة من B2C:</b> نسبة من رسوم المستخدم تذهب للدفع الإلكتروني والتحقق والرسائل والتكاملات. 8% تعني أن كل 100 ريال إيراد B2C يحتاج 8 ريالات تكلفة مباشرة.</div>
+</section>
+
+<section id="market" class="section">
+<div class="pagebar"><h2>حجم السوق <span class="help" data-help="هذه الصفحة تحول بيانات نقاط البيع الرسمية إلى تقدير للسوق المؤهل للضامن لمدة خمس سنوات.">?</span></h2><button class="page-reset" data-reset-page="assumptions">إعادة ضبط مدخلات السوق</button></div>
+<div class="grid"><div class="card"><div class="metric-label">عمليات POS يناير–مايو</div><div class="metric" id="mPosTx"></div></div><div class="card"><div class="metric-label">مبيعات POS يناير–مايو</div><div class="metric" id="mPosSales"></div></div><div class="card"><div class="metric-label">عدد الأشهر المتاحة</div><div class="metric" id="mMonths"></div></div><div class="card"><div class="metric-label">متوسط قيمة عملية POS</div><div class="metric" id="mAvgPos"></div></div></div>
+<div class="explain" style="margin-top:14px">المصدر: ملف SAMA / DataSaudi المرفوع. التقدير السنوي = بيانات الفترة × 12 ÷ عدد الأشهر المتاحة. هذه ليست توقعات إيراد الضامن، بل مؤشر لحجم النشاط التجاري.</div>
+<div class="scroll"><table><thead><tr><th>المؤشر</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead><tbody id="marketTable"></tbody></table></div>
+</section>
+
+<section id="eligible" class="section">
+<div class="pagebar"><h2>المنتجات المؤهلة <span class="help" data-help="نحدد هنا أي فئات المنتجات تدخل في سوق الضامن، وما النسبة التقديرية من عمليات كل فئة التي تمثل أصلًا قابلًا للتسجيل.">?</span></h2><button class="page-reset" data-reset-page="eligible">إعادة ضبط الصفحة</button></div>
+<div class="scroll"><table><thead><tr><th>الفئة</th><th>مشمولة؟</th><th>وزن الفئة</th><th>نسبة العمليات القابلة للتسجيل</th><th>الوزن المؤهل</th><th>أمثلة</th><th>سبب الإدراج</th><th>ملاحظة</th></tr></thead><tbody id="eligibleTable"></tbody></table></div><div style="margin-top:12px"><span class="pill">مجموع الأوزان: <b id="weightTotal"></b></span><span class="pill">النسبة المؤهلة: <b id="eligibleRatio"></b></span><span class="pill" id="weightStatus"></span></div>
+</section>
+
+<section id="costs" class="section">
+<div class="pagebar"><h2>CAPEX و OPEX <span class="help" data-help="CAPEX تأسيسي، أما OPEX فهو متكرر سنويًا. كل قيمة صفراء قابلة للتعديل، وتحتها القيمة الأصلية مع زر إعادة ضبط.">?</span></h2><button class="page-reset" data-reset-page="costs">إعادة ضبط الصفحة</button></div>
+<div class="grid2"><div class="card"><h2>CAPEX</h2><div class="scroll"><table><thead><tr><th>البند</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th><th>الإجمالي</th></tr></thead><tbody id="capexTable"></tbody></table></div></div>
+<div class="card"><h2>OPEX</h2><div class="scroll"><table><thead><tr><th>البند</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th><th>الإجمالي</th></tr></thead><tbody id="opexTable"></tbody></table></div></div></div>
+<div class="card" style="margin-top:14px"><h3>توزيع التمويل</h3><div class="grid"><div id="reserveField"></div><div id="workingField"></div><div class="card"><div class="metric-label">إجمالي الاستخدام قبل الإيرادات</div><div class="metric" id="totalUse"></div></div><div class="card"><div class="metric-label">الفرق عن التمويل</div><div class="metric" id="fundDiff"></div></div></div></div>
+</section>
+
+<section id="revenue" class="section">
+<div class="pagebar"><h2>الإيرادات <span class="help" data-help="B2C دخل من خدمات المستخدمين، وB2B دخل من عقود الشركات والجهات. كل سعر وعدد عقد قابل للتعديل.">?</span></h2><button class="page-reset" data-reset-page="revenue">إعادة ضبط الصفحة</button></div>
+<div class="grid2"><div class="card"><h2>B2C</h2><div class="scroll"><table><thead><tr><th>الخدمة</th><th>السعر</th><th>نسبة الاستخدام</th></tr></thead><tbody id="b2cTable"></tbody></table></div></div><div class="card"><h2>B2B</h2><div class="scroll"><table><thead><tr><th>المصدر</th><th>قيمة العقد</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead><tbody id="b2bTable"></tbody></table></div></div></div>
+</section>
+
+<section id="scenarios" class="section">
+<div class="pagebar"><h2>السيناريوهات <span class="help" data-help="السيناريو يحدد نسبة الوصول والتسجيل والتفعيل وعدد العمليات لكل مستخدم. هذه العناصر تحول السوق الكبير إلى عمليات حقيقية متوقعة.">?</span></h2><button class="page-reset" data-reset-page="scenarios">إعادة ضبط الصفحة</button></div>
+<div class="explain"><b>لماذا قد يظهر 80 عملية يوميًا وإيراد بالملايين؟</b> لأن إيراد السنة لا يأتي من B2C فقط. قد تكون العمليات اليومية منخفضة، لكن توجد عقود B2B كبيرة مثل الجهات الحكومية والبيانات والتكاملات. صفحة ملخص السنوات تفصل B2C عن B2B حتى يظهر السبب بوضوح.</div>
+<div class="scroll"><table><thead><tr><th>السيناريو</th><th>المؤشر</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead><tbody id="scenarioTable"></tbody></table></div>
+</section>
+
+<section id="breakeven" class="section">
+<div class="pagebar"><h2>نقطة التعادل <span class="help" data-help="تعرض هذه الصفحة متى تغطي الإيرادات المصروفات التشغيلية، وكم يبقى من النقد بعد كل سنة.">?</span></h2></div>
+<div class="grid"><div class="card"><div class="metric-label">أول سنة مربحة تشغيليًا</div><div class="metric" id="beYear"></div></div><div class="card"><div class="metric-label">إجمالي إيرادات 5 سنوات</div><div class="metric" id="fiveRevenue"></div></div><div class="card"><div class="metric-label">إجمالي التكاليف 5 سنوات</div><div class="metric" id="fiveCosts"></div></div><div class="card"><div class="metric-label">صافي التدفق 5 سنوات</div><div class="metric" id="fiveNet"></div></div></div>
+<div class="scroll" style="margin-top:14px"><table><thead><tr><th>المؤشر</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead><tbody id="beTable"></tbody></table></div>
+</section>
+</main><div class="footer">كل القيم الصفراء قابلة للتعديل، ويظهر أسفل كل قيمة الرقم الافتراضي مع زر Reset.</div>
+<script>
+const DEFAULTS={
+funding:100000000,months:5,days:365,marketGrowth:4,posTx:363804079.0,posSales:58336406010.61001,b2bDirect:12,b2cDirect:8,reserve:5000000,working:3000000,
+eligible:[{"name": "الهواتف الذكية", "included": 1, "weight": 0.18, "elig": 1.0, "examples": "جوالات، هواتف قابلة للطي", "reason": "رقم تسلسلي أو IMEI وضمان وقيمة إعادة بيع", "note": ""}, {"name": "الحواسيب والأجهزة اللوحية", "included": 1, "weight": 0.12, "elig": 1.0, "examples": "لابتوب، تابلت، PC", "reason": "رقم تسلسلي وضمان وقيمة مرتفعة", "note": ""}, {"name": "الإلكترونيات المنزلية", "included": 1, "weight": 0.16, "elig": 0.85, "examples": "تلفزيون، ثلاجة، غسالة", "reason": "ضمان وعمر استخدام وقيمة استبدال", "note": "نستبعد الخدمات والملحقات البسيطة داخل الفئة"}, {"name": "أجهزة الألعاب والكاميرات", "included": 1, "weight": 0.08, "elig": 0.95, "examples": "PlayStation، Xbox، كاميرات", "reason": "رقم تسلسلي وسوق مستعمل", "note": "نستبعد الألعاب الرقمية وبعض الملحقات"}, {"name": "الساعات والأجهزة القابلة للارتداء", "included": 1, "weight": 0.06, "elig": 0.9, "examples": "ساعات ذكية، أجهزة تتبع", "reason": "ضمان وقيمة إعادة بيع", "note": "نستبعد الأساور والملحقات الرخيصة"}, {"name": "الأثاث والمنتجات المنزلية عالية القيمة", "included": 1, "weight": 0.12, "elig": 0.55, "examples": "أثاث، مراتب، تجهيزات", "reason": "فاتورة وضمان لكن قابلية التتبع أقل", "note": "ليست كل عملية داخل الفئة لأصل عالي القيمة"}, {"name": "المعدات والأدوات", "included": 1, "weight": 0.1, "elig": 0.75, "examples": "أدوات كهربائية، معدات مهنية", "reason": "أرقام تسلسلية وضمان", "note": "نستبعد المستهلكات وقطع الغيار"}, {"name": "الأجهزة الطبية المنزلية", "included": 1, "weight": 0.04, "elig": 0.6, "examples": "ضغط، سكر، تنفس، كراسي", "reason": "أجهزة مادية بضمان", "note": "نستبعد المستلزمات الاستهلاكية"}, {"name": "السيارات والمركبات", "included": 0, "weight": 0.08, "elig": 1.0, "examples": "سيارات، دراجات نارية، مركبات خفيفة", "reason": "إدارة دورة حياة الأصل والضمان والصيانة والتأمين وإعادة البيع", "note": "مستبعدة افتراضيًا — يوجد لاعب متخصص يقدم خدمات نقل وإدارة مركبات بالفعل؛ يمكن تفعيلها لاحقًا من عمود مشمولة؟"}, {"name": "سلع وخدمات غير مؤهلة", "included": 0, "weight": 0.06, "elig": 0.0, "examples": "غذاء، خدمات، وقود", "reason": "ليست أصولًا قابلة للتسجيل", "note": ""}],
+capex:[["إعادة بناء المنصة الأساسية مع التراخيص والاشتراطات (هيئة الأمن السيبراني، سدايا، نفاذ..إلخ)", [24000000, 0, 0, 0, 0], "بند تأسيسي موحّد يشمل: بناء المنصة الأساسية، تطبيقات iOS وAndroid، الذكاء الاصطناعي وOCR ومنصة البيانات، الأمن السيبراني والامتثال الأولي، والتكاملات وواجهات API — بالإضافة إلى استيفاء تراخيص واشتراطات هيئة الأمن السيبراني وسدايا ونفاذ وغيرها قبل الإطلاق."], ["الأجهزة وتجهيز المكتب", [2500000, 0, 0, 0, 0], "أجهزة الموظفين وتجهيزات العمل الأولية."], ["العلامة والملكية الفكرية والإطلاق", [3000000, 0, 0, 0, 0], "الهوية والعلامة والعقود والملكية الفكرية وحملة الإطلاق."], ["CAPEX توسع اختياري", [0, 0, 0, 0, 0], "يستخدم فقط عند شراء أصل جديد أو توسع كبير أو إعادة بناء جوهرية في سنوات لاحقة."]],
+opex:[["الرواتب التقنية والمنتج", [4800000, 5600000, 6500000, 7400000, 8400000], "رواتب فريق التقنية والمنتج بشكل سنوي."], ["التطوير المستمر للمنصة", [1400000, 1700000, 2100000, 2500000, 3000000], "تحسينات ومزايا جديدة بعد الإطلاق."], ["الصيانة وإصلاح الأخطاء والتحديثات", [800000, 1000000, 1300000, 1600000, 2000000], "صيانة دورية وإصلاح أعطال وتحديثات تقنية."], ["الأمن السيبراني التشغيلي والاختبارات", [600000, 750000, 900000, 1100000, 1300000], "اختبارات اختراق ومراقبة أمنية وتشغيل مستمر."], ["الإدارة والمالية والموارد البشرية", [1600000, 1900000, 2200000, 2500000, 2900000], "رواتب وتشغيل الإدارات المساندة."], ["المبيعات والشراكات وخدمة العملاء", [900000, 1500000, 2400000, 3400000, 4700000], "توسع فريق المبيعات والشراكات والدعم."], ["التسويق واكتساب المستخدمين", [1200000, 2000000, 3000000, 4200000, 5600000], "حملات رقمية وشراكات واكتساب مستخدمين."], ["السحابة والذكاء الاصطناعي والاتصالات", [650000, 1000000, 1500000, 2200000, 3100000], "استضافة وتخزين وواجهات AI وSMS والبريد."], ["التراخيص والبرامج والواجهات المدفوعة", [350000, 450000, 600000, 800000, 1000000], "أنظمة العمل والبرمجيات والخدمات المدفوعة."], ["المكتب والقانوني والتدقيق والسفر", [800000, 950000, 1150000, 1400000, 1700000], "إيجار ومحاسبة وتدقيق وقانوني وسفر."], ["احتياطي تشغيلي داخل OPEX", [300000, 400000, 500000, 600000, 700000], "هامش سنوي لمصاريف تشغيلية غير متوقعة."]],
+b2c:[["عمولة التأمين المقسّط", 12, 0.15, "دخل يحصل عند تنفيذ خدمة تأمين مقسّط."], ["تمديد الضمان", 8, 0.25, "رسوم أو عمولة عند تمديد ضمان المنتج."], ["رسوم نقل الملكية", 15, 0.35, "رسوم نقل ملكية الأصل رقميًا."], ["عمولة الاستبدال", 10, 0.25, "عمولة عند إتمام استبدال الأصل."]],
+b2b:[["إعلانات داخل المنصة", 120000, [5, 15, 35, 70, 120], "قيمة عقد سنوي لكل معلن."], ["بيع البيانات للمصنّعين", 350000, [2, 6, 15, 30, 50], "ترخيص بيانات مجمعة ومجهولة الهوية."], ["سلاسل الإمداد وتجار التجزئة", 180000, [4, 12, 30, 60, 100], "لوحات بيانات أو خدمات مؤسسية سنوية."], ["الجهات الحكومية", 1500000, [1, 2, 4, 7, 10], "عقود مؤسسية سنوية."], ["تكامل المتاجر API", 75000, [20, 75, 200, 450, 800], "رسم تكامل أولي لكل متجر."]],
+txPerBuyer:12,
+ adultPop:28400000,
+ popGrowth:2.52,
+ scenarios:{"worst": {"name": "أسوأ", "b2bMult": 0.55, "reach": [0.001, 0.003, 0.007, 0.015, 0.03], "reg": [0.15, 0.18, 0.22, 0.26, 0.3], "act": [0.25, 0.3, 0.35, 0.4, 0.45], "freq": [1.1, 1.3, 1.5, 1.8, 2.1]}, "base": {"name": "متوسط", "b2bMult": 1.0, "reach": [0.003, 0.012, 0.03, 0.07, 0.15], "reg": [0.2, 0.28, 0.35, 0.42, 0.5], "act": [0.35, 0.45, 0.55, 0.65, 0.75], "freq": [1.3, 1.8, 2.4, 3.1, 4.0]}, "best": {"name": "أفضل", "b2bMult": 1.6, "reach": [0.006, 0.02, 0.05, 0.11, 0.22], "reg": [0.28, 0.36, 0.44, 0.52, 0.6], "act": [0.45, 0.56, 0.66, 0.76, 0.84], "freq": [1.6, 2.2, 3.0, 4.0, 5.0]}}
+};
+let state=JSON.parse(JSON.stringify(DEFAULTS));
+const fmt=n=>new Intl.NumberFormat('ar-SA',{maximumFractionDigits:0}).format(n);
+const sar=n=>fmt(n)+' ر.س'; const pct=n=>(n).toFixed(2)+'%';
+const sum=a=>a.reduce((x,y)=>x+y,0);
+function helpIcon(text){return `<span class="help" data-help="${text.replace(/"/g,'&quot;')}">?</span>`}
+function field(id,value,def,type='number',isPercent=false,help=''){return `<div><label>${help?helpIcon(help):''}</label><div class="field-wrap"><div class="${isPercent?'percent-wrap':''}"><input class="edit" id="${id}" type="${type}" step="${isPercent?'0.01':'1'}" value="${value}">${isPercent?'<span class="percent-sign">%</span>':''}<div class="default">الافتراضي: ${isPercent?pct(def):fmt(def)}</div></div><button class="mini-reset" data-reset-id="${id}" data-default="${def}">Reset</button></div></div>`}
+function eligibleRatio(){return state.eligible.reduce((s,x)=>s+x.included*x.weight*x.elig,0)}
+function eligibleMarket(){const annual=state.posTx*12/state.months;return Array.from({length:5},(_,i)=>annual*eligibleRatio()*Math.pow(1+state.marketGrowth/100,i))}
+function scenarioCalc(key){const s=state.scenarios[key],m=eligibleMarket();
+ const tpb=Math.max(0.1,state.txPerBuyer||1);
+ const reachTx=m.map((v,i)=>v*s.reach[i]);
+ const buyers=reachTx.map(v=>v/tpb);
+ const registered=buyers.map((v,i)=>v*s.reg[i]);
+ const activated=registered.map((v,i)=>v*s.act[i]);
+ const annual=activated.map((v,i)=>v*s.freq[i]);
+ const daily=annual.map(v=>v/state.days);
+ const pg=1+(state.popGrowth||0)/100;
+ const adultsY=[0,1,2,3,4].map(i=>state.adultPop*Math.pow(pg,i));
+ const popPct=registered.map((v,i)=>adultsY[i]>0?v/adultsY[i]*100:0);
+ const avg=state.b2c.reduce((a,x)=>a+x[1]*x[2],0);
+ const b2cRev=annual.map(v=>v*avg);
+ const mult=(s.b2bMult!==undefined?s.b2bMult:1);
+ const b2bRev=[0,1,2,3,4].map(i=>state.b2b.reduce((a,x)=>a+x[1]*x[2][i],0)*mult);
+ const revenue=b2cRev.map((v,i)=>v+b2bRev[i]);
+ return{market:m,reachTx,buyers,registered,activated,annual,daily,popPct,adultsY,b2cRev,b2bRev,revenue}}
+function capexY(i){return state.capex.reduce((a,x)=>a+x[1][i],0)}function opexY(i){return state.opex.reduce((a,x)=>a+x[1][i],0)}
+function directCosts(d,i){return d.b2cRev[i]*(state.b2cDirect/100)+d.b2bRev[i]*(state.b2bDirect/100)}
+function resetPage(page){if(page==='assumptions'){['funding','months','days','marketGrowth','posTx','posSales','b2bDirect','b2cDirect','reserve','working'].forEach(k=>state[k]=DEFAULTS[k]);}if(page==='eligible')state.eligible=JSON.parse(JSON.stringify(DEFAULTS.eligible));if(page==='costs'){state.capex=JSON.parse(JSON.stringify(DEFAULTS.capex));state.opex=JSON.parse(JSON.stringify(DEFAULTS.opex));state.reserve=DEFAULTS.reserve;state.working=DEFAULTS.working}if(page==='revenue'){state.b2c=JSON.parse(JSON.stringify(DEFAULTS.b2c));state.b2b=JSON.parse(JSON.stringify(DEFAULTS.b2b))}if(page==='scenarios')state.scenarios=JSON.parse(JSON.stringify(DEFAULTS.scenarios));renderAll()}
+function renderAssumptions(){
+ const items=[
+ ['funding','مبلغ الاستثمار','قيمة الاستثمار المطلوبة من المستثمر.',false],
+ ['months','عدد الأشهر المتاحة من بيانات SAMA','عدد أشهر البيانات الموجودة، وهو 5 أشهر من يناير إلى مايو، وليس سنوات.',false],
+ ['days','أيام التشغيل في السنة','عدد الأيام المستخدمة لتحويل العمليات السنوية إلى يومية.',false],
+ ['marketGrowth','معدل نمو السوق السنوي','نسبة نمو السوق المؤهل من سنة إلى أخرى.',true],
+ ['posTx','عمليات POS في الفترة','إجمالي عدد عمليات نقاط البيع في القطاع خلال الفترة المتاحة.',false],
+ ['posSales','مبيعات POS في الفترة','إجمالي قيمة المبيعات خلال الفترة المتاحة.',false],
+ ['b2bDirect','التكلفة المباشرة من B2B','النسبة التي تذهب مباشرة لتنفيذ عقود الشركات. مثال 12% = 12 ريال من كل 100 ريال إيراد.',true],
+ ['b2cDirect','التكلفة المباشرة من B2C','النسبة التي تذهب للدفع والرسائل والتحقق والتكامل. مثال 8% = 8 ريالات من كل 100 ريال إيراد.',true],
+ ['txPerBuyer','متوسط العمليات المؤهلة لكل مشترٍ سنويًا','العملية ليست شخصًا. المشتري الواحد ينفذ عدة عمليات شراء مؤهلة في السنة، لذلك نقسم العمليات على هذا الرقم للحصول على عدد الأشخاص الحقيقي. بدون هذه القسمة يخرج النموذج بعدد مستخدمين أكبر من سكان المملكة.',true],
+ ['adultPop','عدد البالغين في السعودية — سنة الأساس','السكان 15 سنة فأكثر. مبني على تقدير الهيئة العامة للإحصاء لإجمالي السكان (35.3 مليون منتصف 2024، ونحو 36.7 مليون في 2026) مضروبًا في نسبة الفئة 15 سنة فأكثر البالغة 77.5% حسب التوزيع العمري الرسمي. يستخدم للتحقق فقط ولا يدخل في حساب الإيراد.',true],
+ ['popGrowth','معدل النمو السكاني السنوي %','متوسط معدل النمو السنوي المعلن من الهيئة العامة للإحصاء هو 2.52%. لاحظ أن نمو 2024 بلغ 4.7% لكن 75.6% منه كان من غير السعوديين، بينما نما السعوديون 2% فقط — لذلك نستخدم المتوسط طويل المدى بدل رقم سنة واحدة.',true]
+ ];
+ document.getElementById('assumptionsGrid').innerHTML=items.map(x=>`<div class="card"><div class="metric-label">${x[1]} ${helpIcon(x[2])}</div>${field('ass-'+x[0],state[x[0]],DEFAULTS[x[0]],'number',x[3])}</div>`).join('');
+}
+function renderEligible(){
+ document.getElementById('eligibleTable').innerHTML=state.eligible.map((x,i)=>`<tr><td>${x.name} ${helpIcon(x.note||x.reason)}</td><td>${field('elig-inc-'+i,x.included,DEFAULTS.eligible[i].included)}</td><td>${field('elig-w-'+i,x.weight*100,DEFAULTS.eligible[i].weight*100,'number',true)}</td><td>${field('elig-e-'+i,x.elig*100,DEFAULTS.eligible[i].elig*100,'number',true)}</td><td>${pct(x.included*x.weight*x.elig*100)}</td><td>${x.examples}</td><td>${x.reason}</td><td>${x.note}</td></tr>`).join('');
+}
+function renderCosts(){
+ document.getElementById('capexTable').innerHTML=state.capex.map((x,i)=>`<tr><td>${x[0]} ${helpIcon(x[2])}</td>${x[1].map((v,j)=>`<td>${field('cap-'+i+'-'+j,v,DEFAULTS.capex[i][1][j])}</td>`).join('')}<td>${sar(sum(x[1]))}</td></tr>`).join('');
+ document.getElementById('opexTable').innerHTML=state.opex.map((x,i)=>`<tr><td>${x[0]} ${helpIcon(x[2])}</td>${x[1].map((v,j)=>`<td>${field('op-'+i+'-'+j,v,DEFAULTS.opex[i][1][j])}</td>`).join('')}<td>${sar(sum(x[1]))}</td></tr>`).join('');
+ document.getElementById('reserveField').innerHTML=`<label>الاحتياطي النقدي ${helpIcon('مبلغ للطوارئ أو تأخر النمو، ولا يفضل صرفه في الخطة الأساسية.')}</label>${field('reserve',state.reserve,DEFAULTS.reserve)}`;
+ document.getElementById('workingField').innerHTML=`<label>رأس المال العامل ${helpIcon('سيولة يومية لتغطية الالتزامات القصيرة مثل الموردين والمدفوعات المؤقتة.')}</label>${field('working',state.working,DEFAULTS.working)}`;
+}
+function renderRevenue(){
+ document.getElementById('b2cTable').innerHTML=state.b2c.map((x,i)=>`<tr><td>${x[0]} ${helpIcon(x[3])}</td><td>${field('b2c-p-'+i,x[1],DEFAULTS.b2c[i][1])}</td><td>${field('b2c-u-'+i,x[2]*100,DEFAULTS.b2c[i][2]*100,'number',true)}</td></tr>`).join('');
+ document.getElementById('b2bTable').innerHTML=state.b2b.map((x,i)=>`<tr><td>${x[0]} ${helpIcon(x[3])}</td><td>${field('b2b-p-'+i,x[1],DEFAULTS.b2b[i][1])}</td>${x[2].map((v,j)=>`<td>${field('b2b-n-'+i+'-'+j,v,DEFAULTS.b2b[i][2][j])}</td>`).join('')}</tr>`).join('');
+}
+function renderScenarios(){
+ let out='';Object.entries(state.scenarios).forEach(([k,s])=>{const d=scenarioCalc(k);[['نسبة الوصول','reach','النسبة من السوق المؤهل التي تصل إليها المنصة.'],['معدل التسجيل','reg','النسبة من الأشخاص الذين وصلوا للمنصة وقاموا بالتسجيل.'],['معدل التفعيل','act','النسبة من المسجلين الذين نفذوا أول عملية.'],['متوسط العمليات لكل مستخدم','freq','كم عملية ينفذها المستخدم النشط في السنة.']].forEach((a,idx)=>{out+=`<tr><td>${idx===0?s.name:''}</td><td>${a[0]} ${helpIcon(a[2])}</td>${s[a[1]].map((v,j)=>`<td>${field('sc-'+k+'-'+a[1]+'-'+j,a[1]==='freq'?v:v*100,a[1]==='freq'?DEFAULTS.scenarios[k][a[1]][j]:DEFAULTS.scenarios[k][a[1]][j]*100,'number',a[1]!=='freq')}</td>`).join('')}</tr>`});out+=`<tr><td></td><td>العمليات اليومية</td>${d.daily.map(fmt).map(v=>'<td>'+v+'</td>').join('')}</tr><tr><td></td><td>إيرادات B2C</td>${d.b2cRev.map(sar).map(v=>'<td>'+v+'</td>').join('')}</tr><tr><td></td><td>إيرادات B2B</td>${d.b2bRev.map(sar).map(v=>'<td>'+v+'</td>').join('')}</tr>`});document.getElementById('scenarioTable').innerHTML=out;
+}
+function renderYearView(){
+ const KEYS=['worst','base','best'];
+ // --- 1) B2C ---
+ let b2c='';
+ for(let y=0;y<5;y++){for(const k of KEYS){const d=scenarioCalc(k);
+   const p=d.popPct[y], cls=p>100?'bad':(p>60?'':'good');
+   b2c+=`<tr><td>السنة ${y+1}</td><td>${state.scenarios[k].name}</td><td>${fmt(d.buyers[y])}</td><td>${fmt(d.registered[y])}</td><td class="${cls}">${p.toFixed(1)}%</td><td>${fmt(d.activated[y])}</td><td>${fmt(d.annual[y])}</td><td>${fmt(d.daily[y])}</td><td>${sar(d.b2cRev[y])}</td></tr>`}}
+ document.getElementById('tblB2C').innerHTML=b2c;
+
+ // --- 2) B2B ---
+ let b2b='';
+ for(let y=0;y<5;y++){for(const k of KEYS){const d=scenarioCalc(k);
+   const prev=y>0?d.b2bRev[y-1]:0;
+   const g=y===0?'—':(prev>0?((d.b2bRev[y]/prev-1)*100).toFixed(0)+'%':'—');
+   b2b+=`<tr><td>السنة ${y+1}</td><td>${state.scenarios[k].name}</td><td>${sar(d.b2bRev[y])}</td><td>${g}</td></tr>`}}
+ document.getElementById('tblB2B').innerHTML=b2b;
+
+ // --- 3) Combined ---
+ let cash={worst:state.funding,base:state.funding,best:state.funding},all='';
+ for(let y=0;y<5;y++){for(const k of KEYS){const d=scenarioCalc(k),dc=directCosts(d,y),op=opexY(y),cp=capexY(y),
+   eb=d.revenue[y]-dc-op,net=d.revenue[y]-dc-op-cp;cash[k]+=net;
+   const share=d.revenue[y]>0?(d.b2cRev[y]/d.revenue[y]*100).toFixed(0)+'%':'—';
+   all+=`<tr><td>السنة ${y+1}</td><td>${state.scenarios[k].name}</td><td>${sar(d.b2cRev[y])}</td><td>${sar(d.b2bRev[y])}</td><td><b>${sar(d.revenue[y])}</b></td><td>${share}</td><td>${sar(dc)}</td><td>${sar(op)}</td><td>${sar(cp)}</td><td class="${eb>=0?'good':'bad'}">${sar(eb)}</td><td class="${net>=0?'good':'bad'}">${sar(net)}</td><td>${sar(cash[k])}</td></tr>`}}
+ document.getElementById('tblAll').innerHTML=all;
+}
+function update(){
+ const key=document.getElementById('scenarioSelect').value,d=scenarioCalc(key);let cash=state.funding;const cashArr=[],eb=[];for(let i=0;i<5;i++){const dc=directCosts(d,i);eb.push(d.revenue[i]-dc-opexY(i));cash+=d.revenue[i]-dc-opexY(i)-capexY(i);cashArr.push(cash)}const be=eb.findIndex(v=>v>=0),cap=sum(state.capex.map(x=>sum(x[1]))),op=sum(state.opex.map(x=>sum(x[1])));document.getElementById('kFunding').textContent=sar(state.funding);document.getElementById('kCapex').textContent=sar(cap);document.getElementById('kOpex').textContent=sar(op);document.getElementById('kReserve').textContent=sar(state.reserve);document.getElementById('kMarket').textContent=fmt(d.market[0]);document.getElementById('kRevenue').textContent=sar(d.revenue[0]);document.getElementById('kBE').textContent=be>=0?'السنة '+(be+1):'بعد السنة 5';document.getElementById('kCash').textContent=sar(cashArr[4]);document.getElementById('fundingStatus').textContent=cashArr.every(x=>x>=0)?'✓ التمويل يكفي 5 سنوات':'✗ التمويل لا يكفي';document.getElementById('fundingStatus').className='metric '+(cashArr.every(x=>x>=0)?'good':'bad');document.getElementById('yearSummary').innerHTML=cashArr.map((x,i)=>`<p class="${x>=0?'good':'bad'}">نهاية السنة ${i+1}: ${sar(x)}</p>`).join('');
+ document.getElementById('mPosTx').textContent=fmt(state.posTx);document.getElementById('mPosSales').textContent=sar(state.posSales);document.getElementById('mMonths').textContent=fmt(state.months);document.getElementById('mAvgPos').textContent=sar(state.posTx?state.posSales/state.posTx:0);
+ document.getElementById('marketTable').innerHTML=[['السوق المؤهل (عملية/سنة)',...d.market.map(fmt)],['السوق المؤهل (عملية/يوم)',...d.market.map(v=>fmt(v/state.days))],['معدل النمو السنوي',...Array(5).fill(pct(state.marketGrowth))]].map(r=>'<tr>'+r.map(v=>'<td>'+v+'</td>').join('')+'</tr>').join('');
+ const wt=state.eligible.reduce((a,x)=>a+x.weight,0);document.getElementById('weightTotal').textContent=pct(wt*100);document.getElementById('eligibleRatio').textContent=pct(eligibleRatio()*100);document.getElementById('weightStatus').textContent=Math.abs(wt-1)<.0001?'صحيح – 100%':'راجع الأوزان';document.getElementById('weightStatus').className='pill '+(Math.abs(wt-1)<.0001?'good':'bad');
+ const use=cap+op+state.reserve+state.working;document.getElementById('totalUse').textContent=sar(use);document.getElementById('fundDiff').textContent=sar(state.funding-use);document.getElementById('fundDiff').className='metric '+(state.funding-use>=0?'good':'bad');
+ document.getElementById('beYear').textContent=be>=0?'السنة '+(be+1):'لم نصل خلال 5 سنوات';document.getElementById('fiveRevenue').textContent=sar(sum(d.revenue));document.getElementById('fiveCosts').textContent=sar(sum([0,1,2,3,4].map(i=>directCosts(d,i)+opexY(i)+capexY(i))));document.getElementById('fiveNet').textContent=sar(sum(d.revenue)-sum([0,1,2,3,4].map(i=>directCosts(d,i)+opexY(i)+capexY(i))));document.getElementById('beTable').innerHTML=[['الإيرادات',...d.revenue.map(sar)],['التكاليف المباشرة',...[0,1,2,3,4].map(i=>sar(directCosts(d,i)))],['OPEX',...[0,1,2,3,4].map(i=>sar(opexY(i)))],['CAPEX',...[0,1,2,3,4].map(i=>sar(capexY(i)))],['الربح التشغيلي',...eb.map(sar)],['الرصيد النقدي',...cashArr.map(sar)]].map(r=>'<tr>'+r.map(v=>'<td>'+v+'</td>').join('')+'</tr>').join('');
+ renderYearView();drawChart(d.revenue,[0,1,2,3,4].map(i=>directCosts(d,i)+opexY(i)+capexY(i)));
+}
+function drawChart(rev,cost){const c=document.getElementById('mainChart'),x=c.getContext('2d'),w=c.width,h=c.height;x.clearRect(0,0,w,h);x.fillStyle='#121a2e';x.fillRect(0,0,w,h);const mx=Math.max(...rev,...cost)*1.15,p=55,g=(w-p*2)/5;x.strokeStyle='#2a3655';x.fillStyle='#9fb0d0';x.font='12px Tahoma';for(let i=0;i<=5;i++){let y=p+(h-p*2)*i/5;x.beginPath();x.moveTo(p,y);x.lineTo(w-p,y);x.stroke();x.fillText(fmt(mx*(1-i/5)),4,y+4)}rev.forEach((v,i)=>{let xx=p+i*g+g*.18,bw=g*.28,rh=v/mx*(h-p*2),ch=cost[i]/mx*(h-p*2);x.fillStyle='#5d87f5';x.fillRect(xx,h-p-rh,bw,rh);x.fillStyle='#ffbd4a';x.fillRect(xx+bw+5,h-p-ch,bw,ch);x.fillStyle='#eef3ff';x.fillText('Y'+(i+1),xx+12,h-18)})}
+function renderAll(){renderAssumptions();renderEligible();renderCosts();renderRevenue();renderScenarios();update()}
+document.getElementById('tabs').addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')return;document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(e.target.dataset.tab).classList.add('active')});
+document.addEventListener('mouseover',e=>{const h=e.target.closest('.help');if(!h)return;const t=document.getElementById('tip');t.textContent=h.dataset.help;t.style.display='block';t.style.left=Math.min(e.clientX+12,window.innerWidth-360)+'px';t.style.top=Math.min(e.clientY+12,window.innerHeight-160)+'px'});
+document.addEventListener('mouseout',e=>{if(e.target.closest('.help'))document.getElementById('tip').style.display='none'});
+document.addEventListener('click',e=>{const r=e.target.closest('[data-reset-id]');if(r){const el=document.getElementById(r.dataset.resetId);el.value=r.dataset.default;el.dispatchEvent(new Event('input',{bubbles:true}))}const p=e.target.closest('[data-reset-page]');if(p)resetPage(p.dataset.resetPage)});
+document.addEventListener('input',e=>{const id=e.target.id,v=+e.target.value||0;if(id.startsWith('ass-'))state[id.slice(4)]=v;else if(id==='reserve')state.reserve=v;else if(id==='working')state.working=v;else if(id.startsWith('elig-inc-'))state.eligible[+id.split('-')[2]].included=v;else if(id.startsWith('elig-w-'))state.eligible[+id.split('-')[2]].weight=v/100;else if(id.startsWith('elig-e-'))state.eligible[+id.split('-')[2]].elig=v/100;else if(id.startsWith('cap-')){let a=id.split('-');state.capex[+a[1]][1][+a[2]]=v}else if(id.startsWith('op-')){let a=id.split('-');state.opex[+a[1]][1][+a[2]]=v}else if(id.startsWith('b2c-p-'))state.b2c[+id.split('-')[2]][1]=v;else if(id.startsWith('b2c-u-'))state.b2c[+id.split('-')[2]][2]=v/100;else if(id.startsWith('b2b-p-'))state.b2b[+id.split('-')[2]][1]=v;else if(id.startsWith('b2b-n-')){let a=id.split('-');state.b2b[+a[2]][2][+a[3]]=v}else if(id.startsWith('sc-')){let a=id.split('-'),k=a[1],m=a[2],j=+a[3];state.scenarios[k][m][j]=m==='freq'?v:v/100}update()});
+document.getElementById('scenarioSelect').addEventListener('change',update);renderAll();
+</script></body></html>
