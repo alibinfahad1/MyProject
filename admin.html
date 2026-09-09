@@ -141,8 +141,7 @@ async function publish(){
       if(p.status!==409)throw new Error(last);
       setStatus('وجدنا تعارض نسخة، إعادة المحاولة...');await new Promise(r=>setTimeout(r,700*attempt));
     }
-    throw new Error(last+'
-أغلق أي تبويب محرر آخر، ثم اضغط إعادة تحميل وحاول مرة أخرى.');
+    throw new Error(last+'\nأغلق أي تبويب محرر آخر، ثم اضغط إعادة تحميل وحاول مرة أخرى.');
   }catch(e){setStatus('تعذر النشر');notice(e.message,'err',0)}finally{$('#publishBtn').disabled=false;requestAnimationFrame(()=>window.scrollTo(0,savedY));setTimeout(()=>window.scrollTo(0,savedY),80)}
 }
 $('#publishBtn').onclick=publish;
