@@ -1,768 +1,2591 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>الضامن | AlDhamn</title>
+<meta charset="UTF-8">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
+<title>الضامن | AlDhamn</title>
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
 
-    html {
-      scroll-behavior: smooth;
-    }
+<!-- FONT -->
 
-    body {
-      font-family: "Tajawal", sans-serif;
-      background: #020204;
-      color: white;
-      overflow-x: hidden;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-    /* ===== HERO ===== */
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    .hero {
-      min-height: 100vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-      background:
+
+<style>
+
+
+/* =====================================
+   GLOBAL
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Tajawal", sans-serif;
+
+    background: #020204;
+
+    color: white;
+
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+}
+
+::selection {
+    background: #8b5cf6;
+    color: white;
+}
+
+
+
+/* =====================================
+   REUSABLE LABEL
+===================================== */
+
+.section-label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+
+    padding: 9px 16px;
+
+
+    border-radius: 30px;
+
+
+    background: rgba(255,255,255,0.03);
+
+    border: 1px solid rgba(255,255,255,0.09);
+
+
+    color: #aaa7b2;
+
+
+    font-size: 14px;
+
+
+    margin-bottom: 26px;
+}
+
+
+.section-dot {
+
+    width: 8px;
+
+    height: 8px;
+
+
+    background: #9258ff;
+
+
+    border-radius: 50%;
+
+
+    box-shadow: 0 0 12px #9258ff;
+}
+
+
+
+/* =====================================
+   SECTION 1
+   HERO
+===================================== */
+
+.hero {
+
+    min-height: 100vh;
+
+
+    position: relative;
+
+
+    display: flex;
+
+    flex-direction: column;
+
+
+    overflow: hidden;
+
+
+    background:
+
         radial-gradient(
-          circle at 55% 55%,
-          rgba(112, 56, 190, 0.18),
-          rgba(40, 13, 70, 0.08) 25%,
-          transparent 55%
+            circle at 50% 55%,
+            rgba(110, 54, 180, 0.16),
+            transparent 45%
         ),
+
         #020204;
+}
+
+
+
+/* PURPLE GLOW */
+
+.hero::before {
+
+    content: "";
+
+
+    position: absolute;
+
+
+    width: 750px;
+
+    height: 750px;
+
+
+    top: 28%;
+
+    left: 50%;
+
+
+    transform: translateX(-50%);
+
+
+    background: #7c3aed;
+
+
+    filter: blur(190px);
+
+
+    opacity: 0.10;
+
+
+    border-radius: 50%;
+
+
+    pointer-events: none;
+}
+
+
+
+/* =====================================
+   NAV
+===================================== */
+
+.navbar {
+
+    width: min(1120px, 90%);
+
+
+    margin: 0 auto;
+
+
+    padding-top: 42px;
+
+
+    display: flex;
+
+
+    justify-content: space-between;
+
+
+    align-items: center;
+
+
+    position: relative;
+
+
+    z-index: 10;
+}
+
+
+.brand {
+
+    display: flex;
+
+
+    align-items: center;
+
+
+    gap: 13px;
+
+
+    font-size: 22px;
+
+
+    font-weight: 700;
+}
+
+
+.logo-box {
+
+    width: 48px;
+
+    height: 48px;
+
+
+    border-radius: 13px;
+
+
+    background: white;
+
+
+    display: flex;
+
+
+    align-items: center;
+
+
+    justify-content: center;
+
+
+    overflow: hidden;
+
+
+    box-shadow:
+
+        0 0 18px rgba(143,76,255,0.35),
+
+        0 0 40px rgba(143,76,255,0.12);
+}
+
+
+.logo-box img {
+
+    width: 39px;
+
+    height: 39px;
+
+
+    object-fit: contain;
+}
+
+
+.language {
+
+    background: rgba(255,255,255,0.025);
+
+
+    color: #aaa7b1;
+
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+
+    border-radius: 30px;
+
+
+    padding: 11px 18px;
+
+
+    font-family: inherit;
+
+
+    cursor: pointer;
+
+
+    transition: .3s;
+}
+
+
+.language:hover {
+
+    color: white;
+
+
+    border-color: rgba(255,255,255,0.22);
+}
+
+
+
+/* =====================================
+   HERO CONTENT
+===================================== */
+
+.hero-content {
+
+    width: min(1000px, 90%);
+
+
+    margin: 0 auto;
+
+
+    flex: 1;
+
+
+    display: flex;
+
+
+    flex-direction: column;
+
+
+    align-items: center;
+
+
+    justify-content: center;
+
+
+    text-align: center;
+
+
+    position: relative;
+
+
+    z-index: 5;
+
+
+    padding-bottom: 90px;
+}
+
+
+.hero-badge {
+
+    display: inline-flex;
+
+
+    align-items: center;
+
+
+    gap: 9px;
+
+
+    padding: 9px 16px;
+
+
+    border-radius: 30px;
+
+
+    color: #aaa7b2;
+
+
+    background: rgba(255,255,255,0.035);
+
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+
+    font-size: 14px;
+
+
+    margin-bottom: 27px;
+}
+
+
+.hero-badge span {
+
+    width: 8px;
+
+    height: 8px;
+
+
+    background: #8b5cf6;
+
+
+    border-radius: 50%;
+
+
+    box-shadow: 0 0 12px #8b5cf6;
+}
+
+
+.hero h1 {
+
+    font-size: clamp(52px, 6vw, 92px);
+
+
+    line-height: 1.13;
+
+
+    font-weight: 800;
+
+
+    letter-spacing: -2px;
+
+
+    margin-bottom: 28px;
+}
+
+
+.gradient-text {
+
+    display: block;
+
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            #dfceff 0%,
+
+            #bc89ff 48%,
+
+            #944cff 100%
+
+        );
+
+
+    -webkit-background-clip: text;
+
+
+    -webkit-text-fill-color: transparent;
+
+
+    text-shadow:
+
+        0 0 38px rgba(151,71,255,0.17);
+}
+
+
+.hero-description {
+
+    color: #7a7683;
+
+
+    font-size: 19px;
+
+
+    line-height: 1.9;
+
+
+    font-weight: 300;
+
+
+    max-width: 780px;
+
+
+    margin-bottom: 39px;
+}
+
+
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.actions {
+
+    display: flex;
+
+
+    justify-content: center;
+
+
+    align-items: center;
+
+
+    gap: 30px;
+}
+
+
+.primary-btn {
+
+    text-decoration: none;
+
+
+    background: white;
+
+
+    color: #171719;
+
+
+    padding: 17px 31px;
+
+
+    border-radius: 40px;
+
+
+    font-size: 17px;
+
+
+    font-weight: 700;
+
+
+    box-shadow:
+
+        0 0 28px rgba(255,255,255,0.10);
+
+
+    transition: .3s;
+}
+
+
+.primary-btn:hover {
+
+    transform: translateY(-3px);
+
+
+    box-shadow:
+
+        0 8px 35px rgba(255,255,255,0.20);
+}
+
+
+.secondary-btn {
+
+    text-decoration: none;
+
+
+    color: #b0adb6;
+
+
+    font-size: 17px;
+
+
+    font-weight: 600;
+
+
+    transition: .3s;
+}
+
+
+.secondary-btn:hover {
+
+    color: white;
+}
+
+
+.secondary-btn span {
+
+    margin-right: 8px;
+}
+
+
+
+/* =====================================
+   SECTION 2
+   PROBLEM
+===================================== */
+
+.problem-section {
+
+    min-height: 100vh;
+
+
+    position: relative;
+
+
+    background:
+
+        radial-gradient(
+            circle at 50% 42%,
+            rgba(104,50,180,0.09),
+            transparent 43%
+        ),
+
+        #040406;
+
+
+    padding: 135px 20px;
+
+
+    overflow: hidden;
+}
+
+
+.problem-glow {
+
+    position: absolute;
+
+
+    width: 650px;
+
+    height: 650px;
+
+
+    top: 15%;
+
+    right: -250px;
+
+
+    border-radius: 50%;
+
+
+    background: #7c3aed;
+
+
+    filter: blur(190px);
+
+
+    opacity: 0.07;
+
+
+    pointer-events: none;
+}
+
+
+.problem-wrapper {
+
+    width: min(1150px, 92%);
+
+
+    margin: 0 auto;
+
+
+    position: relative;
+
+
+    z-index: 2;
+}
+
+
+.problem-wrapper h2 {
+
+    font-size: clamp(48px, 5.5vw, 82px);
+
+
+    line-height: 1.15;
+
+
+    font-weight: 800;
+
+
+    letter-spacing: -2px;
+
+
+    max-width: 900px;
+
+
+    margin-bottom: 30px;
+}
+
+
+.problem-wrapper h2 span {
+
+    display: block;
+
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #d9c5ff,
+            #b980ff,
+            #8d48ff
+        );
+
+
+    -webkit-background-clip: text;
+
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+.problem-intro {
+
+    max-width: 760px;
+
+
+    color: #7e7a87;
+
+
+    font-size: 19px;
+
+
+    line-height: 1.9;
+
+
+    margin-bottom: 60px;
+}
+
+
+
+/* PROBLEM CARDS */
+
+.problem-grid {
+
+    display: grid;
+
+
+    grid-template-columns: repeat(2, 1fr);
+
+
+    gap: 18px;
+}
+
+
+.problem-card {
+
+    position: relative;
+
+
+    min-height: 245px;
+
+
+    padding: 32px;
+
+
+    border-radius: 24px;
+
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.045),
+            rgba(255,255,255,0.015)
+        );
+
+
+    border: 1px solid rgba(255,255,255,0.07);
+
+
+    transition: .35s;
+}
+
+
+.problem-card:hover {
+
+    transform: translateY(-6px);
+
+
+    border-color: rgba(148,84,255,0.25);
+
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(143,76,255,0.08),
+            rgba(255,255,255,0.02)
+        );
+}
+
+
+.problem-number {
+
+    color: #8a5de8;
+
+
+    font-size: 14px;
+
+
+    font-weight: 700;
+
+
+    margin-bottom: 34px;
+}
+
+
+.problem-card h3 {
+
+    font-size: 25px;
+
+
+    margin-bottom: 14px;
+
+
+    font-weight: 700;
+}
+
+
+.problem-card p {
+
+    color: #777480;
+
+
+    font-size: 16px;
+
+
+    line-height: 1.8;
+
+
+    max-width: 460px;
+}
+
+
+.problem-bottom {
+
+    margin-top: 55px;
+
+
+    display: flex;
+
+
+    align-items: center;
+
+
+    gap: 20px;
+}
+
+
+.problem-line {
+
+    width: 75px;
+
+
+    height: 1px;
+
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #9358ff,
+            transparent
+        );
+}
+
+
+.problem-bottom p {
+
+    color: #9a97a1;
+
+
+    font-size: 16px;
+}
+
+
+
+/* =====================================
+   SECTION 3
+   SOLUTION
+===================================== */
+
+.solution-section {
+
+    min-height: 100vh;
+
+
+    position: relative;
+
+
+    background:
+
+        linear-gradient(
+            180deg,
+            #040406 0%,
+            #07050b 50%,
+            #030305 100%
+        );
+
+
+    padding: 140px 20px;
+
+
+    overflow: hidden;
+}
+
+
+.solution-glow {
+
+    position: absolute;
+
+
+    border-radius: 50%;
+
+
+    filter: blur(180px);
+
+
+    pointer-events: none;
+}
+
+
+.solution-glow-1 {
+
+    width: 650px;
+
+
+    height: 650px;
+
+
+    background: #7c3aed;
+
+
+    opacity: 0.10;
+
+
+    top: 20%;
+
+
+    left: -250px;
+}
+
+
+.solution-glow-2 {
+
+    width: 550px;
+
+
+    height: 550px;
+
+
+    background: #a855f7;
+
+
+    opacity: 0.07;
+
+
+    bottom: 8%;
+
+
+    right: -200px;
+}
+
+
+.solution-wrapper {
+
+    width: min(1160px, 92%);
+
+
+    margin: 0 auto;
+
+
+    position: relative;
+
+
+    z-index: 3;
+}
+
+
+
+/* SOLUTION TITLE */
+
+.solution-heading {
+
+    display: flex;
+
+
+    justify-content: space-between;
+
+
+    align-items: flex-end;
+
+
+    gap: 50px;
+
+
+    margin-bottom: 85px;
+}
+
+
+.solution-heading h2 {
+
+    font-size: clamp(50px, 5.8vw, 86px);
+
+
+    line-height: 1.13;
+
+
+    font-weight: 800;
+
+
+    letter-spacing: -2px;
+}
+
+
+.solution-heading h2 span {
+
+    display: block;
+
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #ded0ff,
+            #b57aff,
+            #8b47ff
+        );
+
+
+    -webkit-background-clip: text;
+
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+.solution-heading p {
+
+    max-width: 450px;
+
+
+    color: #817d89;
+
+
+    font-size: 18px;
+
+
+    line-height: 1.9;
+}
+
+
+
+/* =====================================
+   SOLUTION SHOWCASE
+===================================== */
+
+.solution-showcase {
+
+    display: grid;
+
+
+    grid-template-columns: 1fr .8fr;
+
+
+    align-items: center;
+
+
+    gap: 90px;
+}
+
+
+
+/* FEATURES */
+
+.solution-info {
+
+    display: flex;
+
+
+    flex-direction: column;
+
+
+    gap: 12px;
+}
+
+
+.solution-feature {
+
+    display: grid;
+
+
+    grid-template-columns: 55px 1fr;
+
+
+    gap: 20px;
+
+
+    padding: 25px 22px;
+
+
+    border-radius: 20px;
+
+
+    border: 1px solid transparent;
+
+
+    transition: .3s;
+}
+
+
+.solution-feature:hover,
+
+.solution-feature.active {
+
+    background: rgba(255,255,255,0.025);
+
+
+    border-color: rgba(255,255,255,0.07);
+}
+
+
+.feature-number {
+
+    color: #8654df;
+
+
+    font-size: 14px;
+
+
+    font-weight: 700;
+
+
+    padding-top: 5px;
+}
+
+
+.solution-feature h3 {
+
+    font-size: 23px;
+
+
+    margin-bottom: 9px;
+
+
+    font-weight: 700;
+}
+
+
+.solution-feature p {
+
+    color: #77737f;
+
+
+    font-size: 16px;
+
+
+    line-height: 1.8;
+
+
+    max-width: 520px;
+}
+
+
+
+/* =====================================
+   PHONE MOCKUP
+===================================== */
+
+.solution-device {
+
+    position: relative;
+
+
+    display: flex;
+
+
+    justify-content: center;
+}
+
+
+.phone-glow {
+
+    position: absolute;
+
+
+    width: 360px;
+
+
+    height: 360px;
+
+
+    background: #8b5cf6;
+
+
+    filter: blur(100px);
+
+
+    opacity: 0.20;
+
+
+    top: 25%;
+
+
+    border-radius: 50%;
+}
+
+
+.phone {
+
+    position: relative;
+
+
+    width: 335px;
+
+
+    padding: 9px;
+
+
+    border-radius: 43px;
+
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #29282d,
+            #09090b
+        );
+
+
+    border: 1px solid rgba(255,255,255,0.13);
+
+
+    box-shadow:
+
+        0 35px 90px rgba(0,0,0,0.6),
+
+        0 0 40px rgba(142,82,255,0.09);
+
+
+    z-index: 2;
+}
+
+
+.phone-top {
+
+    position: absolute;
+
+
+    top: 17px;
+
+
+    left: 50%;
+
+
+    transform: translateX(-50%);
+
+
+    width: 90px;
+
+
+    height: 22px;
+
+
+    border-radius: 20px;
+
+
+    background: #020203;
+
+
+    z-index: 5;
+}
+
+
+.phone-screen {
+
+    min-height: 650px;
+
+
+    border-radius: 35px;
+
+
+    background:
+
+        linear-gradient(
+            180deg,
+            #101014,
+            #09090c
+        );
+
+
+    padding: 28px 22px;
+
+
+    overflow: hidden;
+}
+
+
+
+/* APP HEADER */
+
+.app-header {
+
+    margin-top: 20px;
+
+
+    display: flex;
+
+
+    align-items: center;
+
+
+    justify-content: space-between;
+}
+
+
+.app-header small {
+
+    color: #77747d;
+
+
+    font-size: 12px;
+}
+
+
+.app-header h4 {
+
+    font-size: 24px;
+
+
+    margin-top: 4px;
+}
+
+
+.mini-logo {
+
+    width: 42px;
+
+
+    height: 42px;
+
+
+    border-radius: 12px;
+
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #a86cff,
+            #6d33dc
+        );
+
+
+    display: flex;
+
+
+    align-items: center;
+
+
+    justify-content: center;
+
+
+    font-weight: 800;
+}
+
+
+
+/* ASSET CARD */
+
+.asset-card {
+
+    margin-top: 35px;
+
+
+    padding: 24px;
+
+
+    border-radius: 25px;
+
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(139,92,246,0.15),
+            rgba(255,255,255,0.025)
+        );
+
+
+    border: 1px solid rgba(160,100,255,0.15);
+}
+
+
+.asset-top {
+
+    display: flex;
+
+
+    justify-content: space-between;
+
+
+    color: #8e8998;
+
+
+    font-size: 12px;
+}
+
+
+.asset-icon {
+
+    width: 62px;
+
+
+    height: 62px;
+
+
+    border-radius: 18px;
+
+
+    margin-top: 28px;
+
+
+    margin-bottom: 22px;
+
+
+    display: flex;
+
+
+    align-items: center;
+
+
+    justify-content: center;
+
+
+    background: rgba(255,255,255,0.06);
+
+
+    color: #c8a9ff;
+
+
+    font-size: 27px;
+}
+
+
+.asset-card h5 {
+
+    font-size: 23px;
+
+
+    margin-bottom: 5px;
+}
+
+
+.asset-card > p {
+
+    color: #9c72ed;
+
+
+    font-size: 13px;
+}
+
+
+
+/* WARRANTY */
+
+.warranty-bar {
+
+    height: 6px;
+
+
+    margin-top: 24px;
+
+
+    border-radius: 10px;
+
+
+    background: rgba(255,255,255,0.07);
+
+
+    overflow: hidden;
+}
+
+
+.warranty-bar div {
+
+    width: 67%;
+
+
+    height: 100%;
+
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #7542df,
+            #b06cff
+        );
+
+
+    border-radius: inherit;
+}
+
+
+.asset-date {
+
+    display: flex;
+
+
+    justify-content: space-between;
+
+
+    margin-top: 13px;
+
+
+    font-size: 11px;
+
+
+    color: #77737f;
+}
+
+
+.asset-date strong {
+
+    color: #c9c5ce;
+
+
+    font-weight: 500;
+}
+
+
+
+/* MINI CARDS */
+
+.mini-cards {
+
+    display: grid;
+
+
+    grid-template-columns: 1fr 1fr;
+
+
+    gap: 10px;
+
+
+    margin-top: 14px;
+}
+
+
+.mini-card {
+
+    min-height: 95px;
+
+
+    padding: 16px;
+
+
+    border-radius: 18px;
+
+
+    background: rgba(255,255,255,0.035);
+
+
+    border: 1px solid rgba(255,255,255,0.055);
+}
+
+
+.mini-card span {
+
+    color: #a56cff;
+
+
+    font-size: 18px;
+}
+
+
+.mini-card p {
+
+    color: #aaa6b1;
+
+
+    font-size: 12px;
+
+
+    margin-top: 18px;
+}
+
+
+.app-action {
+
+    margin-top: 16px;
+
+
+    padding: 15px;
+
+
+    text-align: center;
+
+
+    border-radius: 17px;
+
+
+    background: white;
+
+
+    color: #18171a;
+
+
+    font-size: 14px;
+
+
+    font-weight: 700;
+}
+
+
+
+/* RESULT */
+
+.solution-statement {
+
+    margin-top: 130px;
+
+
+    padding-top: 50px;
+
+
+    border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+
+.solution-statement span {
+
+    color: #8555db;
+
+
+    font-size: 14px;
+
+
+    font-weight: 700;
+}
+
+
+.solution-statement h3 {
+
+    margin-top: 18px;
+
+
+    font-size: clamp(35px, 4vw, 58px);
+
+
+    line-height: 1.35;
+
+
+    font-weight: 700;
+
+
+    max-width: 900px;
+}
+
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width: 900px) {
+
+    .solution-heading {
+
+        flex-direction: column;
+
+
+        align-items: flex-start;
     }
 
-    /* Purple glow */
-    .hero::before {
-      content: "";
-      position: absolute;
 
-      width: 700px;
-      height: 700px;
+    .solution-showcase {
 
-      top: 30%;
-      left: 50%;
+        grid-template-columns: 1fr;
 
-      transform: translateX(-50%);
 
-      background: #7c3aed;
-      filter: blur(180px);
-      opacity: 0.10;
-
-      border-radius: 50%;
-      pointer-events: none;
+        gap: 70px;
     }
 
-    /* ===== NAVBAR ===== */
+
+    .solution-device {
+
+        order: -1;
+    }
+
+}
+
+
+@media(max-width: 800px) {
+
+    .problem-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media(max-width: 700px) {
 
     .navbar {
-      width: min(1100px, 90%);
-      margin: 0 auto;
 
-      padding-top: 42px;
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      position: relative;
-      z-index: 10;
+        padding-top: 25px;
     }
+
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
 
-      font-size: 22px;
-      font-weight: 700;
+        font-size: 18px;
     }
+
 
     .logo-box {
-      width: 46px;
-      height: 46px;
 
-      background: white;
-      border-radius: 12px;
+        width: 40px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
 
-      box-shadow:
-        0 0 18px rgba(143, 76, 255, 0.35),
-        0 0 40px rgba(143, 76, 255, 0.15);
+        height: 40px;
     }
 
-    .logo-box img {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-    }
-
-    .language {
-      background: rgba(255,255,255,0.025);
-
-      border: 1px solid rgba(255,255,255,0.08);
-
-      color: #9f9fa7;
-
-      padding: 11px 18px;
-
-      border-radius: 30px;
-
-      font-size: 14px;
-
-      cursor: pointer;
-
-      transition: 0.3s;
-    }
-
-    .language:hover {
-      color: white;
-      border-color: rgba(255,255,255,0.18);
-    }
-
-    /* ===== CONTENT ===== */
 
     .hero-content {
-      flex: 1;
 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      text-align: center;
-
-      max-width: 950px;
-      width: 90%;
-
-      margin: 0 auto;
-
-      padding-bottom: 100px;
-
-      position: relative;
-      z-index: 5;
+        padding-bottom: 60px;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
 
-      padding: 9px 16px;
+    .hero h1 {
 
-      border-radius: 30px;
+        font-size: 47px;
 
-      color: #a5a3ad;
 
-      background: rgba(255,255,255,0.035);
-
-      border: 1px solid rgba(255,255,255,0.10);
-
-      margin-bottom: 27px;
-
-      font-size: 14px;
-      font-weight: 500;
+        letter-spacing: -1px;
     }
 
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-
-      background: #8b5cf6;
-
-      border-radius: 50%;
-
-      box-shadow: 0 0 12px #8b5cf6;
-    }
-
-    h1 {
-      font-size: clamp(52px, 6.2vw, 92px);
-      line-height: 1.12;
-
-      font-weight: 800;
-
-      letter-spacing: -2px;
-
-      margin-bottom: 26px;
-    }
-
-    .gradient-text {
-      display: block;
-
-      background: linear-gradient(
-        90deg,
-        #dfceff 0%,
-        #ba87ff 45%,
-        #944cff 100%
-      );
-
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-
-      text-shadow:
-        0 0 35px rgba(151, 71, 255, 0.20);
-    }
 
     .hero-description {
-      color: #75727f;
 
-      font-size: 19px;
-      font-weight: 300;
-
-      line-height: 1.8;
-
-      max-width: 760px;
-
-      margin-bottom: 38px;
+        font-size: 16px;
     }
 
-    /* ===== BUTTONS ===== */
 
     .actions {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
 
-      gap: 30px;
+        flex-direction: column;
+
+
+        gap: 20px;
     }
+
 
     .primary-btn {
-      text-decoration: none;
 
-      background: white;
-      color: #171717;
-
-      padding: 17px 31px;
-
-      border-radius: 40px;
-
-      font-weight: 700;
-      font-size: 17px;
-
-      transition: 0.3s;
-
-      box-shadow:
-        0 0 25px rgba(255,255,255,0.10);
-    }
-
-    .primary-btn:hover {
-      transform: translateY(-3px);
-
-      box-shadow:
-        0 8px 35px rgba(255,255,255,0.20);
-    }
-
-    .secondary-btn {
-      text-decoration: none;
-
-      color: #b6b4bd;
-
-      font-size: 17px;
-      font-weight: 600;
-
-      transition: 0.3s;
-    }
-
-    .secondary-btn:hover {
-      color: white;
-    }
-
-    .arrow {
-      margin-right: 8px;
-      font-size: 20px;
-    }
-
-
-    /* ===== DEMO SECOND SECTION ===== */
-
-    .problem-section {
-      min-height: 100vh;
-
-      background: #050507;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      padding: 80px 20px;
-
-      text-align: center;
-    }
-
-    .problem-content {
-      max-width: 900px;
-    }
-
-    .problem-content span {
-      color: #9b5cff;
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .problem-content h2 {
-      margin-top: 18px;
-
-      font-size: clamp(42px, 5vw, 70px);
-
-      line-height: 1.25;
-
-      font-weight: 800;
-    }
-
-    .problem-content p {
-      margin-top: 30px;
-
-      color: #77747f;
-
-      font-size: 20px;
-      line-height: 1.8;
-    }
-
-
-    /* ===== MOBILE ===== */
-
-    @media(max-width: 700px) {
-
-      .navbar {
-        padding-top: 25px;
-      }
-
-      .brand {
-        font-size: 18px;
-      }
-
-      .logo-box {
-        width: 40px;
-        height: 40px;
-      }
-
-      .hero-content {
-        padding-bottom: 60px;
-      }
-
-      h1 {
-        font-size: 48px;
-        letter-spacing: -1px;
-      }
-
-      .hero-description {
-        font-size: 16px;
-      }
-
-      .actions {
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .primary-btn {
         width: 100%;
-        max-width: 280px;
-      }
 
+
+        max-width: 280px;
     }
 
-  </style>
+
+    .problem-section,
+
+    .solution-section {
+
+        padding: 100px 20px;
+    }
+
+
+    .problem-wrapper h2,
+
+    .solution-heading h2 {
+
+        font-size: 44px;
+
+
+        letter-spacing: -1px;
+    }
+
+
+    .problem-intro,
+
+    .solution-heading p {
+
+        font-size: 16px;
+    }
+
+
+    .solution-feature {
+
+        grid-template-columns: 42px 1fr;
+
+
+        padding: 20px 10px;
+    }
+
+
+    .phone {
+
+        width: 305px;
+    }
+
+
+    .phone-screen {
+
+        min-height: 610px;
+    }
+
+}
+
+
+</style>
+
 </head>
+
 
 
 <body>
 
-  <!-- ==========================
-       HERO SECTION
-  =========================== -->
-
-  <section class="hero">
-
-    <nav class="navbar">
-
-      <!-- LOGO -->
-      <div class="brand">
-
-        <div class="logo-box">
-          <img src="logo.png" alt="شعار الضامن">
-        </div>
-
-        <div>الضامن</div>
-
-      </div>
 
 
-      <!-- LANGUAGE -->
-      <button class="language">
-        English
-      </button>
-
-    </nav>
+<!-- =====================================
+     SECTION 1
+     HERO
+===================================== -->
 
 
-    <div class="hero-content">
-
-      <div class="badge">
-
-        <div class="badge-dot"></div>
-
-        طبقة الثقة لما بعد الشراء
-
-      </div>
+<section class="hero">
 
 
-      <h1>
-
-        تحويل المنتجات إلى
-
-        <span class="gradient-text">
-          أصول قابلة للتسييل
-        </span>
-
-      </h1>
+<nav class="navbar">
 
 
-      <p class="hero-description">
-
-        نحفظ فواتيرك وضماناتك في سجل واحد موثّق،
-        ننبهك قبل انتهاء الضمان،
-        ونتيح لك تأمين أجهزتك بأقساط شهرية —
-        وتسييلها بكاش فوري وقت الترقية.
-
-      </p>
+<div class="brand">
 
 
-      <div class="actions">
+<div class="logo-box">
 
-        <a href="#contact" class="primary-btn">
-          تواصل معنا للشراكة
-        </a>
+<img src="logo.png" alt="شعار الضامن">
 
-        <a href="#problem" class="secondary-btn">
-          اكتشف المشكلة
-          <span class="arrow">↓</span>
-        </a>
+</div>
 
-      </div>
 
-    </div>
+<div>
 
-  </section>
+الضامن
+
+</div>
+
+
+</div>
 
 
 
-  <!-- ==========================
-       SECOND SECTION
-  =========================== -->
+<button class="language">
 
-  <section id="problem" class="problem-section">
+English
 
-    <div class="problem-content">
+</button>
 
-      <span>
-        المشكلة
-      </span>
 
-      <h2>
-        ما بعد الشراء لا يزال
-        <br>
-        تجربة مجزأة
-      </h2>
+</nav>
 
-      <p>
 
-        الفواتير في مكان، والضمانات في مكان آخر،
-        ولا يتذكر المستخدم متى ينتهي الضمان أو أين اشترى المنتج.
 
-        <br><br>
+<div class="hero-content">
 
-        الضامن يجمع هذه الرحلة في تجربة رقمية واحدة.
 
-      </p>
+<div class="hero-badge">
 
-    </div>
+<span></span>
 
-  </section>
+طبقة الثقة لما بعد الشراء
+
+</div>
+
+
+
+<h1>
+
+تحويل المنتجات إلى
+
+<span class="gradient-text">
+
+أصول قابلة للتسييل
+
+</span>
+
+</h1>
+
+
+
+<p class="hero-description">
+
+نحفظ فواتيرك وضماناتك في سجل واحد موثّق،
+ننبهك قبل انتهاء الضمان،
+ونتيح لك خدمات الحماية المرتبطة بمنتجاتك،
+لتصبح تجربة ما بعد الشراء أكثر وضوحاً وسهولة.
+
+</p>
+
+
+
+<div class="actions">
+
+
+<a href="#solution" class="primary-btn">
+
+تواصل معنا للشراكة
+
+</a>
+
+
+<a href="#problem" class="secondary-btn">
+
+اكتشف المشكلة
+
+<span>↓</span>
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+<!-- =====================================
+     SECTION 2
+     PROBLEM
+===================================== -->
+
+
+<section id="problem" class="problem-section">
+
+
+<div class="problem-glow"></div>
+
+
+
+<div class="problem-wrapper">
+
+
+<div class="section-label">
+
+<span class="section-dot"></span>
+
+المشكلة
+
+</div>
+
+
+
+<h2>
+
+ما بعد الشراء
+
+<span>
+
+لا يزال تجربة مجزأة
+
+</span>
+
+</h2>
+
+
+
+<p class="problem-intro">
+
+بعد الشراء تبدأ رحلة جديدة،
+لكنها اليوم موزعة بين الفاتورة،
+الضمان، مقدم الخدمة، المراسلات،
+ومواعيد انتهاء التغطية.
+
+</p>
+
+
+
+<div class="problem-grid">
+
+
+
+<div class="problem-card">
+
+
+<div class="problem-number">
+
+01
+
+</div>
+
+
+<h3>
+
+ضياع الفواتير
+
+</h3>
+
+
+<p>
+
+الفواتير محفوظة في أكثر من مكان،
+وقد يصعب الوصول إليها عند الحاجة للصيانة
+أو إثبات الشراء.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="problem-card">
+
+
+<div class="problem-number">
+
+02
+
+</div>
+
+
+<h3>
+
+نسيان الضمان
+
+</h3>
+
+
+<p>
+
+كثير من المستخدمين لا يتذكرون متى
+ينتهي الضمان إلا بعد حدوث العطل.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="problem-card">
+
+
+<div class="problem-number">
+
+03
+
+</div>
+
+
+<h3>
+
+تجربة مشتتة
+
+</h3>
+
+
+<p>
+
+المستندات والخدمات موزعة بين المتاجر
+والمنصات ومقدمي الخدمة.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="problem-card">
+
+
+<div class="problem-number">
+
+04
+
+</div>
+
+
+<h3>
+
+قيمة غير مستغلة
+
+</h3>
+
+
+<p>
+
+يبقى المنتج مجرد عملية شراء
+دون سجل موحد يساعد المستخدم على إدارة
+قيمته وخدماته بعد الشراء.
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<div class="problem-bottom">
+
+
+<div class="problem-line"></div>
+
+
+<p>
+
+هنا تأتي الحاجة إلى طبقة رقمية موحدة لما بعد الشراء.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+<!-- =====================================
+     SECTION 3
+     SOLUTION
+===================================== -->
+
+
+<section id="solution" class="solution-section">
+
+
+<div class="solution-glow solution-glow-1"></div>
+
+<div class="solution-glow solution-glow-2"></div>
+
+
+
+<div class="solution-wrapper">
+
+
+<div class="section-label">
+
+<span class="section-dot"></span>
+
+الحل
+
+</div>
+
+
+
+<div class="solution-heading">
+
+
+<h2>
+
+كل ما بعد الشراء
+
+<span>
+
+في سجل واحد
+
+</span>
+
+</h2>
+
+
+
+<p>
+
+الضامن يجمع الفاتورة،
+الضمان،
+حالة المنتج،
+التنبيهات،
+والخدمات المرتبطة به
+في تجربة رقمية موحدة وسهلة الوصول.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="solution-showcase">
+
+
+
+<div class="solution-info">
+
+
+
+
+<div class="solution-feature active">
+
+
+<div class="feature-number">
+
+01
+
+</div>
+
+
+<div>
+
+
+<h3>
+
+حفظ الفواتير والضمانات
+
+</h3>
+
+
+<p>
+
+جميع فواتيرك وضماناتك محفوظة في سجل موحد،
+مهما كان مصدرها.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="solution-feature">
+
+
+<div class="feature-number">
+
+02
+
+</div>
+
+
+<div>
+
+
+<h3>
+
+تنبيهات قبل انتهاء الضمان
+
+</h3>
+
+
+<p>
+
+نذكّرك قبل انتهاء التغطية
+حتى تستفيد من الضمان في الوقت المناسب.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="solution-feature">
+
+
+<div class="feature-number">
+
+03
+
+</div>
+
+
+<div>
+
+
+<h3>
+
+خدمات مرتبطة بالمنتج
+
+</h3>
+
+
+<p>
+
+الوصول إلى خدمات الحماية والصيانة
+والخدمات المرتبطة بالمنتج
+من مكان واحد.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="solution-feature">
+
+
+<div class="feature-number">
+
+04
+
+</div>
+
+
+<div>
+
+
+<h3>
+
+سجل رقمي للمنتج
+
+</h3>
+
+
+<p>
+
+يتحول المنتج من عملية شراء عابرة
+إلى أصل رقمي موثق
+يمكن متابعة بياناته وخدماته
+طوال دورة حياته.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<!-- PHONE -->
+
+
+<div class="solution-device">
+
+
+<div class="phone-glow"></div>
+
+
+<div class="phone">
+
+
+<div class="phone-top"></div>
+
+
+
+<div class="phone-screen">
+
+
+
+<div class="app-header">
+
+
+<div>
+
+
+<small>
+
+مرحباً بك
+
+</small>
+
+
+<h4>
+
+الضامن
+
+</h4>
+
+
+</div>
+
+
+
+<div class="mini-logo">
+
+ض
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="asset-card">
+
+
+<div class="asset-top">
+
+
+<span>
+
+أجهزتي
+
+</span>
+
+
+<small>
+
+3 منتجات
+
+</small>
+
+
+</div>
+
+
+
+<div class="asset-icon">
+
+▣
+
+</div>
+
+
+
+<h5>
+
+iPhone 17 Pro
+
+</h5>
+
+
+
+<p>
+
+الضمان ساري
+
+</p>
+
+
+
+<div class="warranty-bar">
+
+<div></div>
+
+</div>
+
+
+
+<div class="asset-date">
+
+
+<span>
+
+ينتهي الضمان
+
+</span>
+
+
+<strong>
+
+بعد 8 أشهر
+
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="mini-cards">
+
+
+<div class="mini-card">
+
+
+<span>
+
+✓
+
+</span>
+
+
+<p>
+
+الفاتورة محفوظة
+
+</p>
+
+
+</div>
+
+
+
+<div class="mini-card">
+
+
+<span>
+
+◷
+
+</span>
+
+
+<p>
+
+تنبيه الضمان
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="app-action">
+
+عرض تفاصيل المنتج
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="solution-statement">
+
+
+<span>
+
+النتيجة
+
+</span>
+
+
+<h3>
+
+تجربة واحدة تبدأ بعد الشراء
+
+<br>
+
+وتستمر طوال عمر المنتج.
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
 
 
 </body>
+
 </html>
-<section id="problem" class="problem-section">
-
-  <div class="problem-glow"></div>
-
-  <div class="problem-wrapper">
-
-    <div class="section-label">
-      <span class="section-dot"></span>
-      المشكلة
-    </div>
-
-    <h2>
-      ما بعد الشراء
-      <span>لا يزال تجربة مجزأة</span>
-    </h2>
-
-    <p class="problem-intro">
-      بعد الشراء تبدأ رحلة جديدة، لكنها اليوم موزعة بين الفاتورة،
-      الضمان، مقدم الخدمة، الرسائل، ومواعيد الانتهاء.
-    </p>
-
-    <div class="problem-grid">
-
-      <div class="problem-card">
-        <div class="problem-number">01</div>
-        <h3>ضياع الفواتير</h3>
-        <p>
-          الفواتير محفوظة في أكثر من مكان، وقد يصعب الوصول إليها
-          عند الحاجة للصيانة أو إثبات الشراء.
-        </p>
-      </div>
-
-      <div class="problem-card">
-        <div class="problem-number">02</div>
-        <h3>نسيان الضمان</h3>
-        <p>
-          كثير من المستخدمين لا يتذكرون متى ينتهي الضمان إلا بعد
-          حدوث العطل.
-        </p>
-      </div>
-
-      <div class="problem-card">
-        <div class="problem-number">03</div>
-        <h3>تجربة مشتتة</h3>
-        <p>
-          المستندات والمراسلات والخدمات موزعة بين المتاجر والمنصات
-          ومقدمي الخدمة.
-        </p>
-      </div>
-
-      <div class="problem-card">
-        <div class="problem-number">04</div>
-        <h3>قيمة غير مستغلة</h3>
-        <p>
-          المنتج يبقى مجرد عملية شراء، دون سجل موحد يساعد المستخدم
-          على إدارة قيمته وخدماته بعد الشراء.
-        </p>
-      </div>
-
-    </div>
-
-    <div class="problem-bottom">
-
-      <div class="problem-line"></div>
-
-      <p>
-        هنا تأتي الحاجة إلى طبقة رقمية موحدة لما بعد الشراء.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-<section id="solution" class="solution-section">
-
-  <div class="solution-glow solution-glow-1"></div>
-  <div class="solution-glow solution-glow-2"></div>
-
-  <div class="solution-wrapper">
-
-    <div class="section-label">
-      <span class="section-dot"></span>
-      الحل
-    </div>
-
-    <div class="solution-heading">
-
-      <h2>
-        كل ما بعد الشراء
-        <span>في سجل واحد</span>
-      </h2>
-
-      <p>
-        الضامن يجمع الفاتورة، الضمان، حالة المنتج، والتنبيهات
-        والخدمات المرتبطة به في تجربة رقمية موحدة وسهلة الوصول.
-      </p>
-
-    </div>
-
-
-    <div class="solution-showcase">
-
-      <div class="solution-info">
-
-        <div class="solution-feature active">
-
-          <div class="feature-number">01</div>
-
-          <div>
-            <h3>حفظ الفواتير والضمانات</h3>
-            <p>
-              جميع فواتيرك وضماناتك محفوظة في سجل موحد،
-              مهما كان مصدرها.
-            </p>
-          </div>
-
-        </div>
-
-
-        <div class="solution-feature">
-
-          <div class="feature-number">02</div>
-
-          <div>
-            <h3>تنبيهات قبل انتهاء الضمان</h3>
-            <p>
-              نذكّرك قبل انتهاء التغطية حتى تستفيد من الضمان
-              في الوقت المناسب.
-            </p>
-          </div>
-
-        </div>
-
-
-        <div class="solution-feature">
-
-          <div class="feature-number">03</div>
-
-          <div>
-            <h3>خدمات مرتبطة بالمنتج</h3>
-            <p>
-              الوصول إلى خدمات الحماية والصيانة والخدمات
-              المرتبطة بالمنتج من مكان واحد.
-            </p>
-          </div>
-
-        </div>
-
-
-        <div class="solution-feature">
-
-          <div class="feature-number">04</div>
-
-          <div>
-            <h3>سجل رقمي لقيمة المنتج</h3>
-            <p>
-              يتحول المنتج من عملية شراء عابرة إلى أصل رقمي
-              موثق يمكن متابعة بياناته وخدماته طوال دورة حياته.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-
-
-      <div class="solution-device">
-
-        <div class="phone-glow"></div>
-
-        <div class="phone">
-
-          <div class="phone-top">
-            <span></span>
-          </div>
-
-          <div class="phone-screen">
-
-            <div class="app-header">
-
-              <div>
-                <small>مرحباً بك</small>
-                <h4>الضامن</h4>
-              </div>
-
-              <div class="mini-logo">
-                ض
-              </div>
-
-            </div>
-
-
-            <div class="asset-card">
-
-              <div class="asset-top">
-                <span>أجهزتي</span>
-                <small>3 منتجات</small>
-              </div>
-
-              <div class="asset-icon">
-                ▣
-              </div>
-
-              <h5>iPhone 17 Pro</h5>
-
-              <p>الضمان ساري</p>
-
-              <div class="warranty-bar">
-                <div></div>
-              </div>
-
-              <div class="asset-date">
-                <span>ينتهي الضمان</span>
-                <strong>بعد 8 أشهر</strong>
-              </div>
-
-            </div>
-
-
-            <div class="mini-cards">
-
-              <div class="mini-card">
-                <span>✓</span>
-                <p>الفاتورة محفوظة</p>
-              </div>
-
-              <div class="mini-card">
-                <span>◷</span>
-                <p>تنبيه الضمان</p>
-              </div>
-
-            </div>
-
-
-            <div class="app-action">
-              عرض تفاصيل المنتج
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="solution-statement">
-
-      <span>النتيجة</span>
-
-      <h3>
-        تجربة واحدة تبدأ بعد الشراء
-        <br>
-        وتستمر طوال عمر المنتج.
-      </h3>
-
-    </div>
-
-  </div>
-
-</section>
