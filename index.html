@@ -1,10 +1,504 @@
-mkdir al-daman
-cd al-daman
-# انسخ ملف index.html اللي حمّلته إلى هذا المجلد
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-git init
-git add index.html
-git commit -m "الموقع الأول"
-git branch -M main
-git remote add origin https://github.com/USERNAME/al-daman.git
-git push -u origin main
+  <title>الضامن | AlDhamn</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Tajawal", sans-serif;
+      background: #020204;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* ===== HERO ===== */
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 55% 55%,
+          rgba(112, 56, 190, 0.18),
+          rgba(40, 13, 70, 0.08) 25%,
+          transparent 55%
+        ),
+        #020204;
+    }
+
+    /* Purple glow */
+    .hero::before {
+      content: "";
+      position: absolute;
+
+      width: 700px;
+      height: 700px;
+
+      top: 30%;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      background: #7c3aed;
+      filter: blur(180px);
+      opacity: 0.10;
+
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* ===== NAVBAR ===== */
+
+    .navbar {
+      width: min(1100px, 90%);
+      margin: 0 auto;
+
+      padding-top: 42px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      position: relative;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .logo-box {
+      width: 46px;
+      height: 46px;
+
+      background: white;
+      border-radius: 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-shadow:
+        0 0 18px rgba(143, 76, 255, 0.35),
+        0 0 40px rgba(143, 76, 255, 0.15);
+    }
+
+    .logo-box img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+    }
+
+    .language {
+      background: rgba(255,255,255,0.025);
+
+      border: 1px solid rgba(255,255,255,0.08);
+
+      color: #9f9fa7;
+
+      padding: 11px 18px;
+
+      border-radius: 30px;
+
+      font-size: 14px;
+
+      cursor: pointer;
+
+      transition: 0.3s;
+    }
+
+    .language:hover {
+      color: white;
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    /* ===== CONTENT ===== */
+
+    .hero-content {
+      flex: 1;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      text-align: center;
+
+      max-width: 950px;
+      width: 90%;
+
+      margin: 0 auto;
+
+      padding-bottom: 100px;
+
+      position: relative;
+      z-index: 5;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 9px 16px;
+
+      border-radius: 30px;
+
+      color: #a5a3ad;
+
+      background: rgba(255,255,255,0.035);
+
+      border: 1px solid rgba(255,255,255,0.10);
+
+      margin-bottom: 27px;
+
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+
+      background: #8b5cf6;
+
+      border-radius: 50%;
+
+      box-shadow: 0 0 12px #8b5cf6;
+    }
+
+    h1 {
+      font-size: clamp(52px, 6.2vw, 92px);
+      line-height: 1.12;
+
+      font-weight: 800;
+
+      letter-spacing: -2px;
+
+      margin-bottom: 26px;
+    }
+
+    .gradient-text {
+      display: block;
+
+      background: linear-gradient(
+        90deg,
+        #dfceff 0%,
+        #ba87ff 45%,
+        #944cff 100%
+      );
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      text-shadow:
+        0 0 35px rgba(151, 71, 255, 0.20);
+    }
+
+    .hero-description {
+      color: #75727f;
+
+      font-size: 19px;
+      font-weight: 300;
+
+      line-height: 1.8;
+
+      max-width: 760px;
+
+      margin-bottom: 38px;
+    }
+
+    /* ===== BUTTONS ===== */
+
+    .actions {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      gap: 30px;
+    }
+
+    .primary-btn {
+      text-decoration: none;
+
+      background: white;
+      color: #171717;
+
+      padding: 17px 31px;
+
+      border-radius: 40px;
+
+      font-weight: 700;
+      font-size: 17px;
+
+      transition: 0.3s;
+
+      box-shadow:
+        0 0 25px rgba(255,255,255,0.10);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 8px 35px rgba(255,255,255,0.20);
+    }
+
+    .secondary-btn {
+      text-decoration: none;
+
+      color: #b6b4bd;
+
+      font-size: 17px;
+      font-weight: 600;
+
+      transition: 0.3s;
+    }
+
+    .secondary-btn:hover {
+      color: white;
+    }
+
+    .arrow {
+      margin-right: 8px;
+      font-size: 20px;
+    }
+
+
+    /* ===== DEMO SECOND SECTION ===== */
+
+    .problem-section {
+      min-height: 100vh;
+
+      background: #050507;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 80px 20px;
+
+      text-align: center;
+    }
+
+    .problem-content {
+      max-width: 900px;
+    }
+
+    .problem-content span {
+      color: #9b5cff;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .problem-content h2 {
+      margin-top: 18px;
+
+      font-size: clamp(42px, 5vw, 70px);
+
+      line-height: 1.25;
+
+      font-weight: 800;
+    }
+
+    .problem-content p {
+      margin-top: 30px;
+
+      color: #77747f;
+
+      font-size: 20px;
+      line-height: 1.8;
+    }
+
+
+    /* ===== MOBILE ===== */
+
+    @media(max-width: 700px) {
+
+      .navbar {
+        padding-top: 25px;
+      }
+
+      .brand {
+        font-size: 18px;
+      }
+
+      .logo-box {
+        width: 40px;
+        height: 40px;
+      }
+
+      .hero-content {
+        padding-bottom: 60px;
+      }
+
+      h1 {
+        font-size: 48px;
+        letter-spacing: -1px;
+      }
+
+      .hero-description {
+        font-size: 16px;
+      }
+
+      .actions {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .primary-btn {
+        width: 100%;
+        max-width: 280px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <!-- ==========================
+       HERO SECTION
+  =========================== -->
+
+  <section class="hero">
+
+    <nav class="navbar">
+
+      <!-- LOGO -->
+      <div class="brand">
+
+        <div class="logo-box">
+          <img src="logo.png" alt="شعار الضامن">
+        </div>
+
+        <div>الضامن</div>
+
+      </div>
+
+
+      <!-- LANGUAGE -->
+      <button class="language">
+        English
+      </button>
+
+    </nav>
+
+
+    <div class="hero-content">
+
+      <div class="badge">
+
+        <div class="badge-dot"></div>
+
+        طبقة الثقة لما بعد الشراء
+
+      </div>
+
+
+      <h1>
+
+        تحويل المنتجات إلى
+
+        <span class="gradient-text">
+          أصول قابلة للتسييل
+        </span>
+
+      </h1>
+
+
+      <p class="hero-description">
+
+        نحفظ فواتيرك وضماناتك في سجل واحد موثّق،
+        ننبهك قبل انتهاء الضمان،
+        ونتيح لك تأمين أجهزتك بأقساط شهرية —
+        وتسييلها بكاش فوري وقت الترقية.
+
+      </p>
+
+
+      <div class="actions">
+
+        <a href="#contact" class="primary-btn">
+          تواصل معنا للشراكة
+        </a>
+
+        <a href="#problem" class="secondary-btn">
+          اكتشف المشكلة
+          <span class="arrow">↓</span>
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ==========================
+       SECOND SECTION
+  =========================== -->
+
+  <section id="problem" class="problem-section">
+
+    <div class="problem-content">
+
+      <span>
+        المشكلة
+      </span>
+
+      <h2>
+        ما بعد الشراء لا يزال
+        <br>
+        تجربة مجزأة
+      </h2>
+
+      <p>
+
+        الفواتير في مكان، والضمانات في مكان آخر،
+        ولا يتذكر المستخدم متى ينتهي الضمان أو أين اشترى المنتج.
+
+        <br><br>
+
+        الضامن يجمع هذه الرحلة في تجربة رقمية واحدة.
+
+      </p>
+
+    </div>
+
+  </section>
+
+
+</body>
+</html>
