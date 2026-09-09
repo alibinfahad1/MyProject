@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>مشروعي الأول</title>
-</head>
+mkdir al-daman
+cd al-daman
+# انسخ ملف index.html اللي حمّلته إلى هذا المجلد
 
-<body>
-    <h1>مرحباً 👋</h1>
-    <h2>موقعي الأول على GitHub</h2>
-    <p>الموقع يعمل بنجاح.</p>
-</body>
-</html>
+git init
+git add index.html
+git commit -m "الموقع الأول"
+git branch -M main
+git remote add origin https://github.com/USERNAME/al-daman.git
+git push -u origin main
