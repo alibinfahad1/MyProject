@@ -1,1 +1,80 @@
-
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>محرر الضامن v2</title>
+<link rel="icon" type="image/png" href="logo.png">
+<script>
+/* Always start at the top after a page load/refresh. */
+(function(){
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  function resetTop(){ window.scrollTo(0,0); }
+  resetTop();
+  document.addEventListener('DOMContentLoaded', resetTop, {once:true});
+  window.addEventListener('load', function(){ resetTop(); setTimeout(resetTop,0); setTimeout(resetTop,120); }, {once:true});
+  window.addEventListener('pageshow', function(){ resetTop(); setTimeout(resetTop,0); });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="assets/admin.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="title">
+<h1>محرر الضامن</h1>
+<span class="status" id="status">جاري التحميل...</span>
+</div>
+    <div class="actions">
+<button class="btn" id="reloadBtn">إعادة تحميل</button>
+<button class="btn success" id="draftBtn">حفظ مسودة</button>
+<button class="btn primary" id="publishBtn">حفظ ونشر</button>
+</div>
+  </div>
+  <div class="notice" id="notice">
+</div>
+  <details>
+    <summary>إعداد النشر على GitHub</summary>
+    <div class="settings">
+      <div class="field">
+<label>GitHub Username</label>
+<input id="owner" value="alibinfahad1" autocomplete="username">
+</div>
+      <div class="field">
+<label>Repository</label>
+<input id="repo" value="MyProject">
+</div>
+      <div class="field">
+<label>Branch</label>
+<input id="branch" value="main">
+</div>
+      <div class="field">
+<label>Fine-grained Token</label>
+<input id="token" type="password" placeholder="github_pat_..." autocomplete="off">
+</div>
+      <div class="field full">
+<label>مسار ملف المحتوى</label>
+<input id="path" value="content.json" readonly>
+</div>
+    </div>
+    <div class="hint">التوكن يُستخدم فقط عند الضغط على «حفظ ونشر»، ولا يُحفظ داخل content.json أو GitHub. استخدم Fine-grained Token بصلاحية <b>Contents: Read and write</b> على مستودع MyProject فقط.</div>
+  </details>
+  <div class="tabs" id="tabs">
+</div>
+  <div class="toolbar">
+<div class="search">
+<input id="search" placeholder="ابحث في المحتوى...">
+</div>
+<div class="count" id="count">
+</div>
+</div>
+  <div id="editor">
+</div>
+  <div class="footer">الموقع يقرأ النصوص من content.json، لذلك تعدّل المحتوى من هنا ثم تضغط «حفظ ونشر».</div>
+</div>
+<script src="assets/admin.js"></script>
+</body>
+</html>
