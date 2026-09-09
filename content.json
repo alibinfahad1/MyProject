@@ -1,12 +1,12 @@
 {
   "c001": {
-    "ar": "منصة الضامن",
-    "en": "Aldhamn Platform",
+    "ar": "الضامن",
+    "en": "Aldhamn",
     "category": "المحتوى العام"
   },
   "c002": {
-    "ar": "طبقة الثقة لما بعد الشراء",
-    "en": "The trust layer after purchase",
+    "ar": "طبقة الثقة لما بعد الشراء (الضامن(",
+    "en": "The trust layer after purchase (Aldhamn)",
     "category": "تحويل المنتجات إلى أصول قابلة للتسييل"
   },
   "c003": {
