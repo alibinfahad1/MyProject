@@ -554,10 +554,10 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
                         </div>
                     </div>
                     <div class="order-1 md:order-2 flex justify-center reveal">
-                        <div class="relative" style="width:300px">
+                        <div class="relative" style="width:340px">
                             <div class="absolute -inset-6 bg-brand-500/20 blur-[60px] rounded-full pointer-events-none"></div>
-                            <div class="relative rounded-[2.5rem] border border-white/10 shadow-2xl overflow-hidden bg-black" style="width:300px;height:625px;direction:ltr">
-                                <iframe src="app-demo.html" title="تصوّر تفاعلي لتطبيق الضامن" class="border-0" loading="lazy" style="position:absolute;top:0;left:0;width:390px;height:812px;transform:scale(0.7692);transform-origin:top left"></iframe>
+                            <div class="relative rounded-[2.5rem] border border-white/10 shadow-2xl overflow-hidden bg-black" style="width:340px;height:741px;direction:ltr">
+                                <iframe src="app-demo.html" title="تصوّر تفاعلي لتطبيق الضامن" class="border-0" loading="lazy" style="position:absolute;top:0;left:0;width:390px;height:850px;transform:scale(0.871795);transform-origin:top left"></iframe>
                             </div>
                         </div>
                     </div>
@@ -688,20 +688,20 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
 
                     <div class="mt-10 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                         <div>
-                            <div class="text-3xl font-bold text-white mb-1">18M</div>
-                            <p class="text-gray-500 text-sm" data-i18n="regStat1">جوال يُباع سنوياً بلا سجل ملكية</p>
+                            <div class="text-3xl font-bold text-white mb-1" data-i18n="regStatV1">18M+</div>
+                            <p class="text-gray-500 text-sm" data-i18n="regStat1">جهاز جوال يُباع سنويًا</p>
                         </div>
                         <div>
-                            <div class="text-3xl font-bold text-red-400 mb-1">0</div>
-                            <p class="text-gray-500 text-sm" data-i18n="regStat2">مشغّلين، كل واحد يحظر على شبكته فقط</p>
+                            <div class="text-3xl font-bold text-red-400 mb-1" data-i18n="regStatV2">متفرّقة</div>
+                            <p class="text-gray-500 text-sm" data-i18n="regStat2">الفواتير والضمانات عبر مصادر متعددة</p>
                         </div>
                         <div>
-                            <div class="text-3xl font-bold text-white mb-1">0</div>
-                            <p class="text-gray-500 text-sm" data-i18n="regStat3">سجل وطني موحّد لملكية الأجهزة</p>
+                            <div class="text-3xl font-bold text-red-400 mb-1" data-i18n="regStatV3">غير موحّدة</div>
+                            <p class="text-gray-500 text-sm" data-i18n="regStat3">ملكية المنتجات لا ترتبط بسجل رقمي واحد</p>
                         </div>
                         <div>
-                            <div class="text-3xl font-bold text-green-400 mb-1">1</div>
-                            <p class="text-gray-500 text-sm" data-i18n="regStat4">فرصة لبناء هذه الطبقة أولاً</p>
+                            <div class="text-3xl font-bold text-green-400 mb-1" data-i18n="regStatV4">الضامن</div>
+                            <p class="text-gray-500 text-sm" data-i18n="regStat4">طبقة موحّدة للفاتورة، الضمان، والملكية</p>
                         </div>
                     </div>
                 </div>
@@ -834,7 +834,18 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
                 <div id="parallax-space" class="flex flex-wrap items-center justify-center gap-5 mb-20 reveal"></div>
 
                 <!-- Dynamic Team Cards (Name + Bio) -->
-                <div id="team-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+                <div id="team-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto"></div>
+            </div>
+
+            <!-- Team CV Modal -->
+            <div id="teamCvModal" class="hidden fixed inset-0 z-[999] flex items-center justify-center p-6" onclick="if(event.target===this)closeTeamCV()">
+                <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+                <div class="relative glass-card bg-[#0a0a0a] border border-white/10 rounded-[2rem] p-8 md:p-10 max-w-md w-full text-center shadow-2xl">
+                    <button onclick="closeTeamCV()" class="absolute top-4 left-4 w-9 h-9 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button>
+                    <div id="teamCvInitial" class="w-20 h-20 mx-auto rounded-full bg-brand-500/15 border border-brand-500/30 flex items-center justify-center text-3xl font-bold text-brand-400 mb-5"></div>
+                    <h3 id="teamCvName" class="text-2xl font-bold text-white mb-3"></h3>
+                    <p id="teamCvBio" class="text-gray-400 leading-relaxed"></p>
+                </div>
             </div>
             
             <!-- Fade out gradient -->
@@ -1180,7 +1191,7 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
                 mf2T: "الاستبدال الذكي", mf2D: "يشتري 'الضامن' الجهاز القديم، وتحصل أنت كتاجر على قيمة المبيعات للجهاز الجديد.",
                 mf3T: "تكامل فوري API", mf3D: "لا حاجة لتغيير أنظمة المحاسبة، ربط برمجي سلس يسجل الفواتير تلقائياً بلا تعقيد.",
 
-                teamTitle: "فريق العمل", teamSub: "خبرات متراكمة من كبرى الكيانات الوطنية والعالمية",
+                teamTitle: "فريق العمل", teamSub: "خبرات متراكمة من كبرى الكيانات الوطنية والعالمية", teamCvHint: "عرض السيرة الذاتية ←",
                 member1Name: "علي المقاطي", 
                 member2Name: "مشهور العصيمي", 
                 member3Name: "سليمان الخطيب", 
@@ -1211,7 +1222,8 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
                 regPrecT: "سابقة عالمية", regPrecD: "الهند أنشأت سجلاً وطنياً موحداً لهويات الأجهزة (CEIR)، وألزمت الإفصاح عن رقم IMEI قبل البيع. الجهاز المسروق يُحظر على كل الشبكات خلال 24 ساعة — فتنهار قيمته وينتفي الدافع للسرقة.",
                 regRoleT: "دور الضامن", regRoleD: "نبني طبقة سجل الملكية للأجهزة: كل جهاز يُسجّل بفاتورته وIMEI باسم مالكه، ويُنقل السجل رسمياً عند البيع — بالتكامل مع الجهات المختصة ومشغّلي الاتصالات والمتاجر.",
                 regWhyT: "لماذا يهم", regWhyD: "سوق الأجهزة المستعملة اليوم قائم على الثقة الشخصية. سجل موثّق يرفع سعر إعادة البيع، يقطع سوق المسروقات، ويعطي الجهات الأمنية والتجارية مرجعاً واحداً.",
-                regStat1: "جوال يُباع سنوياً بلا سجل ملكية", regStat2: "مشغّلين، كل واحد يحظر على شبكته فقط", regStat3: "سجل وطني موحّد لملكية الأجهزة", regStat4: "فرصة لبناء هذه الطبقة أولاً", 
+                regStat1: "جهاز جوال يُباع سنويًا", regStat2: "الفواتير والضمانات عبر مصادر متعددة", regStat3: "ملكية المنتجات لا ترتبط بسجل رقمي واحد", regStat4: "طبقة موحّدة للفاتورة، الضمان، والملكية",
+                regStatV1: "18M+", regStatV2: "متفرّقة", regStatV3: "غير موحّدة", regStatV4: "الضامن",
                 closeTitle: "لنبنِ طبقة الثقة معاً", closeSub: "الضامن يحوّل كل فاتورة وضمان إلى سجل موثّق، ويفتح مصدرين للدخل من المستهلك والشركات. نسعد بالتواصل معكم لمناقشة الشراكة.", contactEmail: "info@aldhamn.com", contactPhone: "050 147 3111", finBtn: "النموذج المالي التفاعلي", invBtn: "المستثمرون المحتملون"
             },
             en: {
@@ -1237,7 +1249,7 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
                 journeyTitle: "Customer Journey: A Comparison", jOld: "Current State", jNew: "With AlDhamn", jo1T: "Scattered Buying", jo1D: "Different stores, paper or WhatsApp receipts.", jo2T: "Loss & Damage", jo2D: "Chats deleted, paper lost, warranty forgotten.", jo3T: "Value lost", jo3D: "A device with no record sells for less than it is worth.", jn1T: "Unified Wallet", jn1D: "All your purchases from all stores in one place.", jn2T: "Alerts & Trade-ins", jn2D: "Notified before expiry, seamless store trade-in.", jn3T: "Protection & liquidity", jn3D: "Insurance in monthly instalments, and instant cash at trade-in.",
                 b2bTag: "B2B Retail Partnerships", merchTitle: "Turning Warranties into Recurring Sales", merchSub: "AlDhamn is a growth engine for retailers to guarantee customer return for upgrades and trade-ins.", mf1T: "Precision Targeting (Hot Leads)", mf1D: "Know exactly when a customer's warranty ends to offer timely upgrades.", mf2T: "Smart Trade-in", mf2D: "We buy the old device, you get the sale for the new one.", mf3T: "Seamless API Integration", mf3D: "No accounting system changes needed. Seamless automated invoice registration.",
                 
-                teamTitle: "The Team", teamSub: "Leaders with accumulated experience from top national and global entities",
+                teamTitle: "The Team", teamSub: "Leaders with accumulated experience from top national and global entities", teamCvHint: "View CV ←",
                 member1Name: "Ali Al-Maqati", 
                 member2Name: "Mashhour Al-Osaimi", 
                 member3Name: "Sulaiman Al-Khatib", 
@@ -1268,7 +1280,8 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
                 regPrecT: "Global precedent", regPrecD: "India built a unified national device identity register (CEIR) and mandated IMEI disclosure before sale. A stolen device is blocked across every network within 24 hours — its value collapses and the incentive to steal disappears.",
                 regRoleT: "AlDhamn's role", regRoleD: "We build the ownership record layer for devices: each device registered with its invoice and IMEI under its owner, with the record formally transferred on sale — integrated with authorities, telecom operators and retailers.",
                 regWhyT: "Why it matters", regWhyD: "The used-device market runs on personal trust today. A verified record raises resale prices, cuts off the stolen-goods market, and gives commercial and security bodies a single reference.",
-                regStat1: "phones sold yearly with no ownership record", regStat2: "operators, each blocking only on its own network", regStat3: "unified national device ownership registry", regStat4: "opportunity to build this layer first", 
+                regStat1: "mobile devices sold yearly", regStat2: "Invoices & warranties across scattered sources", regStat3: "Product ownership isn't tied to one digital record", regStat4: "A unified layer for invoice, warranty & ownership",
+                regStatV1: "18M+", regStatV2: "Scattered", regStatV3: "Not unified", regStatV4: "AlDhamn",
                 closeTitle: "Let us build the trust layer together", closeSub: "AlDhamn turns every invoice and warranty into a verified record, opening two revenue streams from consumers and businesses. We would be glad to discuss partnership.", contactEmail: "info@aldhamn.com", contactPhone: "050 147 3111", finBtn: "Interactive Financial Model", invBtn: "Prospective Investors"
             }
         };
@@ -1276,10 +1289,8 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
         // ===== Dynamic (admin-controlled) default data =====
         const defaultDynamic = {
             team: [
-                { nameAr: "علي المقاطي", nameEn: "Ali Al-Maqati", bioAr: "خبرة في القطاع الحكومي والتقني.", bioEn: "Experience across government and tech sectors." },
                 { nameAr: "مشهور العصيمي", nameEn: "Mashhour Al-Osaimi", bioAr: "خبرة في التأمين والخدمات المالية.", bioEn: "Experience in insurance and financial services." },
-                { nameAr: "سليمان الخطيب", nameEn: "Sulaiman Al-Khatib", bioAr: "خبرة في تطوير المشاريع والاستراتيجية.", bioEn: "Experience in venture development and strategy." },
-                { nameAr: "مشاري الجميل", nameEn: "Mashari Al-Jameel", bioAr: "خبرة في التقنية والمنتجات الرقمية.", bioEn: "Experience in technology and digital products." }
+                { nameAr: "علي المقاطي", nameEn: "Ali Al-Maqati", bioAr: "خبرة في القطاع الحكومي والتقني.", bioEn: "Experience across government and tech sectors." }
             ],
             stats: [
                 { target: 76, unitAr: "مليار ريال", unitEn: "Billion SAR", labelAr: "أقساط التأمين المكتتبة في المملكة", labelEn: "Insurance premiums written in the Kingdom" },
@@ -1343,14 +1354,36 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
             const grid = document.getElementById('team-grid');
             if(!grid) return;
             const lang = state.lang;
+            const hint = (state.data[lang] && state.data[lang].teamCvHint) || 'عرض السيرة الذاتية ←';
             grid.innerHTML = (state.dynamic.team || []).map((m, i) => {
                 const name = lang==='ar' ? m.nameAr : (m.nameEn||m.nameAr);
                 const bio = lang==='ar' ? (m.bioAr||'') : (m.bioEn||m.bioAr||'');
-                return `<div class="glass-card p-8 rounded-[2rem] flex flex-col items-center justify-center text-center reveal active group hover:bg-white/5 border border-white/10 shadow-2xl backdrop-blur-2xl bg-black/40">
-                    <h3 class="text-2xl font-bold text-white group-hover:text-brand-400 transition-colors mb-3">${name}</h3>
-                    ${bio ? `<p class="text-gray-400 text-sm leading-relaxed">${bio}</p>` : ''}
+                const initial = (name||'').trim().charAt(0);
+                return `<div onclick="openTeamCV(${i})" class="glass-card p-8 rounded-[2rem] flex flex-col items-center justify-center text-center reveal active group hover:bg-white/5 border border-white/10 shadow-2xl backdrop-blur-2xl bg-black/40 cursor-pointer transition-transform hover:-translate-y-1">
+                    <div class="w-16 h-16 rounded-full bg-brand-500/15 border border-brand-500/30 flex items-center justify-center text-xl font-bold text-brand-400 mb-4">${initial}</div>
+                    <h3 class="text-2xl font-bold text-white group-hover:text-brand-400 transition-colors mb-2">${name}</h3>
+                    ${bio ? `<p class="text-gray-400 text-sm leading-relaxed mb-3">${bio}</p>` : ''}
+                    <span class="text-xs text-brand-400 font-bold opacity-70 group-hover:opacity-100 transition-opacity">${hint}</span>
                 </div>`;
             }).join('');
+        }
+
+        function openTeamCV(i) {
+            const m = (state.dynamic.team || [])[i];
+            if (!m) return;
+            const lang = state.lang;
+            const name = lang==='ar' ? m.nameAr : (m.nameEn||m.nameAr);
+            const bio = lang==='ar' ? (m.bioAr||'') : (m.bioEn||m.bioAr||'');
+            const initial = (name||'').trim().charAt(0);
+            document.getElementById('teamCvInitial').textContent = initial;
+            document.getElementById('teamCvName').textContent = name;
+            document.getElementById('teamCvBio').textContent = bio;
+            document.getElementById('teamCvModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeTeamCV() {
+            document.getElementById('teamCvModal').classList.add('hidden');
+            document.body.style.overflow = '';
         }
 
         // Render dynamic stats
