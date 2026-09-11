@@ -1048,30 +1048,8 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
 
         <!-- Footer -->
         <footer class="py-10 text-center text-sm text-gray-600 relative border-t border-white/5">
-            <div class="mb-4 flex flex-wrap gap-3 justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <button onclick="openFinancialGate()" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-brand-500/40 bg-brand-500/10 text-brand-300 hover:bg-brand-500/20 transition-colors font-bold text-sm">
-                    <i data-lucide="lock" class="w-4 h-4"></i>
-                    <span data-i18n="finBtn">النموذج المالي التفاعلي</span>
-                </button>
-                <button onclick="openInvestorGate()" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 transition-colors font-bold text-sm">
-                    <i data-lucide="briefcase" class="w-4 h-4"></i>
-                    <span data-i18n="invBtn">المستثمرون المحتملون</span>
-                </button>
-            </div>
             <p class="font-inter">© <span id="currentYear"></span> AlDhamn. All rights reserved.</p>
         </footer>
-
-        <!-- Financial Model password gate -->
-        <div id="finGate" class="fixed inset-0 bg-dark-900/95 backdrop-blur-xl z-[100] hidden items-center justify-center p-6 font-inter" style="display:none">
-            <div class="glass-panel p-10 rounded-2xl w-full max-w-md text-center">
-                <div class="w-14 h-14 rounded-2xl bg-brand-500/15 border border-brand-500/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="lock" class="w-7 h-7 text-brand-400"></i></div>
-                <h2 class="text-2xl font-bold mb-2 text-white" id="finGateTitle">النموذج المالي</h2>
-                <p class="text-gray-400 text-sm mb-6" id="finGateSub">هذا المحتوى محمي. أدخل كلمة المرور للدخول.</p>
-                <input type="password" id="finPassword" placeholder="كلمة المرور" class="w-full bg-dark-800 border border-white/10 rounded-lg px-4 py-3 mb-4 text-white text-center" onkeydown="if(event.key==='Enter')checkFinPassword()">
-                <button onclick="checkFinPassword()" class="w-full bg-brand-600 hover:bg-brand-500 transition-colors text-white font-bold py-3 rounded-lg">دخول</button>
-                <button onclick="closeFinGate()" class="mt-4 text-sm text-gray-400 hover:text-white">إلغاء</button>
-            </div>
-        </div>
 
     </main>
 
@@ -1202,7 +1180,7 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
                 regWhyT: "لماذا يهم", regWhyD: "سوق الأجهزة المستعملة اليوم قائم على الثقة الشخصية. سجل موثّق يرفع سعر إعادة البيع، يقطع سوق المسروقات، ويعطي الجهات الأمنية والتجارية مرجعاً واحداً.",
                 regStat1: "جهاز جوال يُباع سنويًا", regStat2: "الفواتير والضمانات عبر مصادر متعددة", regStat3: "ملكية المنتجات لا ترتبط بسجل رقمي واحد", regStat4: "طبقة موحّدة للفاتورة، الضمان، والملكية",
                 regStatV1: "18M+", regStatV2: "متفرّقة", regStatV3: "غير موحّدة", regStatV4: "الضامن",
-                closeTitle: "لنبنِ طبقة الثقة معاً", closeSub: "الضامن يحوّل كل فاتورة وضمان إلى سجل موثّق، ويفتح مصدرين للدخل من المستهلك والشركات. نسعد بالتواصل معكم لمناقشة الشراكة.", contactEmail: "info@aldhamn.com", contactPhone: "050 260 0205", finBtn: "النموذج المالي التفاعلي", invBtn: "المستثمرون المحتملون"
+                closeTitle: "لنبنِ طبقة الثقة معاً", closeSub: "الضامن يحوّل كل فاتورة وضمان إلى سجل موثّق، ويفتح مصدرين للدخل من المستهلك والشركات. نسعد بالتواصل معكم لمناقشة الشراكة.", contactEmail: "info@aldhamn.com", contactPhone: "050 260 0205"
             },
             en: {
                 companyName: "AlDhamn", heroTagline: "The Trust Layer for Life After Purchase", heroTitle: "Turning Products into <br/> <span class='text-gradient text-glow'>Liquid Assets</span>", heroSub: "We keep your invoices and warranties in one verified record, alert you before the warranty ends, and let you insure your devices in monthly instalments — then trade them in for instant cash at upgrade time.", heroCta1: "Contact us for partnership", heroCta2: "Discover the Problem",
@@ -1261,7 +1239,7 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
                 regWhyT: "Why it matters", regWhyD: "The used-device market runs on personal trust today. A verified record raises resale prices, cuts off the stolen-goods market, and gives commercial and security bodies a single reference.",
                 regStat1: "mobile devices sold yearly", regStat2: "Invoices & warranties across scattered sources", regStat3: "Product ownership isn't tied to one digital record", regStat4: "A unified layer for invoice, warranty & ownership",
                 regStatV1: "18M+", regStatV2: "Scattered", regStatV3: "Not unified", regStatV4: "AlDhamn",
-                closeTitle: "Let us build the trust layer together", closeSub: "AlDhamn turns every invoice and warranty into a verified record, opening two revenue streams from consumers and businesses. We would be glad to discuss partnership.", contactEmail: "info@aldhamn.com", contactPhone: "050 260 0205", finBtn: "Interactive Financial Model", invBtn: "Prospective Investors"
+                closeTitle: "Let us build the trust layer together", closeSub: "AlDhamn turns every invoice and warranty into a verified record, opening two revenue streams from consumers and businesses. We would be glad to discuss partnership.", contactEmail: "info@aldhamn.com", contactPhone: "050 260 0205"
             }
         };
 
@@ -2484,32 +2462,6 @@ html.light-mode .to-brand-950\/20{--tw-gradient-to:rgba(139,92,246,.08) var(--tw
                 alert('لم يُحفظ في قاعدة البيانات.\n\nالسبب: ' + (lastSaveError || 'غير معروف') + '\n\nالتعديلات ما زالت ظاهرة على الصفحة لكنها ستُفقد عند إعادة التحميل.');
             }
             setTimeout(()=>{ st.textContent=''; },8000);
-        }
-
-        // ---- Financial model password gate ----
-        const FIN_MODEL_URL = 'AlDhamn_Interactive_Financial_Model_AR_v1_2.html';
-        let gateTarget = FIN_MODEL_URL;
-        function openInvestorGate(){
-            gateTarget = 'jarir.html';
-            const t=document.getElementById('finGateTitle'), s=document.getElementById('finGateSub');
-            if(t) t.textContent = 'عرض المستثمرين';
-            if(s) s.textContent = 'هذا المستند خاص. أدخل كلمة المرور للاطلاع.';
-            openFinancialGate();
-        }
-        function openFinancialGate(){
-            if(gateTarget === FIN_MODEL_URL){
-                const t=document.getElementById('finGateTitle'), s=document.getElementById('finGateSub');
-                if(t) t.textContent = 'النموذج المالي';
-                if(s) s.textContent = 'هذا المحتوى محمي. أدخل كلمة المرور للدخول.';
-            }
-            const g=document.getElementById('finGate'); g.style.display='flex';
-            setTimeout(()=>document.getElementById('finPassword').focus(),50);
-        }
-        function closeFinGate(){ document.getElementById('finGate').style.display='none'; document.getElementById('finPassword').value=''; gateTarget = FIN_MODEL_URL; }
-        async function checkFinPassword(){
-            const h = await sha256(document.getElementById('finPassword').value);
-            if(h===ADMIN_HASH){ window.location.href = gateTarget; gateTarget = FIN_MODEL_URL; }
-            else { alert('كلمة المرور غير صحيحة'); document.getElementById('finPassword').value=''; }
         }
 
         // ---- Init ----
